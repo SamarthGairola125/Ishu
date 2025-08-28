@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>7 Letters </title>
-  
+  <title>Letters </title>
+  <meta name="description" content="Interactive apology page : letters, video, playful animations." />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,500&display=swap" rel="stylesheet">
 
   <style>
@@ -31,7 +31,7 @@
     .section-title{display:flex;align-items:center;justify-content:center;margin-bottom:12px}
     .section-title h2{font-family:"Crimson Pro",serif;font-size:1.25rem;color:var(--rose-deep);margin:0}
 
-    /* sparkles */
+    /* sparkles (subtle) */
     .sparkles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
     .spark{position:absolute;border-radius:50%;background:linear-gradient(180deg,#fff,#ffd1e0);opacity:.9;filter:blur(.6px)}
 
@@ -39,18 +39,17 @@
     .dil-wrap{display:grid;place-items:center}
     .dil-player{width:100%;max-width:420px;aspect-ratio:9/16;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(230,60,100,.06);margin:0 auto;background:#000;border:6px solid rgba(255,230,240,.6)}
     .dil-player video{width:100%;height:100%;object-fit:cover;display:block}
-    .dil-player.visible{transform:translateY(0);opacity:1}
 
     /* Theater */
     .theater-wrap .screen{border-radius:12px;overflow:hidden;background:#000;box-shadow:0 24px 80px rgba(0,0,0,.16);padding:6px}
     .media-frame{width:100%;height:56.25vw;max-height:60vh;border:0;display:block}
 
-    /* POOP */
+    /* POOP area - IMPORTANT: face-wrap has position:relative for proper placement */
     .poop-area{display:grid;gap:12px;padding:18px;align-items:center}
-    .face-wrap{position:relative;max-width:520px;margin:0 auto;display:flex;justify-content:center}
+    .face-wrap{position:relative;max-width:520px;margin:0 auto;display:flex;justify-content:center;min-height:240px}
     .face-img{width:300px;height:300px;border-radius:12px;object-fit:cover;display:block;box-shadow:var(--soft-shadow);cursor:pointer;user-select:none}
     .poop-button{background:linear-gradient(180deg,#ffd65e,#ffb703);border:none;padding:12px 16px;border-radius:12px;font-weight:800;cursor:pointer;box-shadow:var(--soft-shadow)}
-    .poop-emoji{position:absolute;font-size:64px;line-height:1;pointer-events:none;user-select:none;z-index:9999;will-change:transform,opacity;filter:drop-shadow(0 12px 26px rgba(0,0,0,.18))}
+    .poop-emoji{position:absolute;font-size:64px;line-height:1;pointer-events:none;user-select:none;z-index:999;will-change:transform,opacity;filter:drop-shadow(0 12px 26px rgba(0,0,0,.18));opacity:0}
     .shake{animation:shake .32s ease-in-out}
     @keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}}
 
@@ -85,11 +84,10 @@
       .face-img{width:220px;height:220px}
       .envelope-viewport{width:88%;height:300px}
     }
-    @media (prefers-reduced-motion: reduce){
-      *{transition:none!important;animation:none!important}
-    }
+    @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
   </style>
 </head>
+
 <body>
   <div class="sparkles" id="sparkles" aria-hidden="true"></div>
 
@@ -118,7 +116,7 @@
       </div>
     </section>
 
-    <!-- THEATER (unchanged) -->
+    <!-- THEATER -->
     <section class="block theater-wrap" id="theaterSection" aria-labelledby="theaterTitle">
       <div class="section-title"><h2 id="theaterTitle">🎬 Perfect Together — The Short Film</h2></div>
       <div class="screen" id="screen">
@@ -130,7 +128,7 @@
     <section class="block poop-area" id="poopSection" aria-labelledby="poopTitle">
       <div class="section-title"><h2 id="poopTitle">💩 Poop My Face (for fun)</h2></div>
       <div class="face-wrap" id="faceWrap">
-        <!-- kept your original photo path untouched -->
+        <!-- kept your original photo path unchanged -->
         <img id="faceImg" class="face-img" src="donkeyLove.jpg" alt="Face image">
       </div>
 
@@ -198,14 +196,14 @@
     (function spawnSparkles(){
       const root = $('#sparkles');
       if(!root) return;
-      for(let i=0;i<14;i++){
+      for(let i=0;i<12;i++){
         const d = document.createElement('div');
         d.className = 'spark';
-        const size = 6 + Math.random()*18;
+        const size = 6 + Math.random()*16;
         d.style.width = d.style.height = size+'px';
         d.style.left = Math.random()*100 + '%';
         d.style.top = Math.random()*100 + '%';
-        d.style.opacity = (0.05 + Math.random()*0.4);
+        d.style.opacity = (0.04 + Math.random()*0.4);
         root.appendChild(d);
         d.animate([{transform:'translateY(0)', opacity:d.style.opacity},{transform:'translateY(-40px)', opacity:0}], {duration: 3000+Math.random()*6000, iterations: Infinity, direction:'alternate', easing:'ease-in-out'});
       }
@@ -220,149 +218,141 @@
         entries.forEach(e=> { if(e.isIntersecting) dil.classList.add('visible'); });
       }, {threshold:.28});
       obs.observe($('#dilSection'));
-      // spawn notes on play (optional effect)
-      v.addEventListener('play', ()=> {
-        const wrap = $('#dilSection');
-        for(let i=0;i<8;i++){
-          setTimeout(()=>{
-            const n = document.createElement('div');
-            n.className='music-note';
-            n.textContent = Math.random()>0.5 ? '♪' : '♩';
-            n.style.left = (10+Math.random()*80) + '%';
-            n.style.top = (60 + Math.random()*20) + '%';
-            n.style.fontSize = (12 + Math.random()*26) + 'px';
-            wrap.appendChild(n);
-            n.animate([{transform:'translateY(0)', opacity:.12},{transform:'translateY(-140px)', opacity:0}], {duration:1200 + Math.random()*1200, easing:'ease-out', fill:'forwards'});
-            setTimeout(()=> n.remove(), 2200);
-          }, i*120);
-        }
-      });
     })();
 
-    /* ---------------- THEATER: open curtains once ---------------- */
+    /* ---------------- THEATER placeholder ---------------- */
     (function initTheater(){
       const screen = $('#screen');
-      const left = $('#curtainLeft'), right = $('#curtainRight');
       if(!screen) return;
-      screen.addEventListener('click', ()=> {
-        if(left) left.classList.add('open');
-        if(right) right.classList.add('open');
-        setTimeout(()=> screen.classList.add('visible'), 700);
-      }, {once:true});
+      // intentionally minimal: clicking the screen does nothing harmful; user can click iframe controls
     })();
 
-    /* ---------------- POOP feature (robust) ---------------- */
+    /* ---------------- POOP feature (fixed) ---------------- */
+    const faceWrap = $('#faceWrap');
     const faceImg = $('#faceImg');
     const poopBtn = $('#poopBtn');
     const rapidPoop = $('#rapidPoop');
     const poopSection = $('#poopSection');
     let rapidInterval = null;
 
-    function createPoop(pageX, pageY){
-      // create absolute element on body using page coords
-      const el = document.createElement('div');
-      el.className = 'poop-emoji';
-      el.textContent = '💩';
-      el.style.position = 'absolute';
-      el.style.left = (pageX - 32) + 'px';
-      el.style.top = (pageY - 32) + 'px';
-      el.style.opacity = '0';
-      el.style.transform = `translateY(-200px) rotate(${rand(-30,30)}deg) scale(.6)`;
-      el.style.zIndex = 9999;
-      document.body.appendChild(el);
+    function createPoopAtClient(clientX, clientY){
+      if(!faceWrap) return;
+      const rect = faceWrap.getBoundingClientRect();
+      const size = 64;
+      // compute local coords relative to faceWrap (use client coords)
+      const localX = (typeof clientX === 'number') ? (clientX - rect.left - size/2) : (rect.width/2 - size/2 + rand(-40,40));
+      const localY = (typeof clientY === 'number') ? (clientY - rect.top - size/2) : (rect.height/2 - size/2 + rand(-40,40));
 
-      // animate in
+      const p = document.createElement('div');
+      p.className = 'poop-emoji';
+      p.textContent = '💩';
+      p.style.left = `${localX}px`;
+      p.style.top  = `${localY}px`;
+      p.style.transform = `translateY(-180px) rotate(${rand(-30,30)}deg) scale(.6)`;
+      p.style.opacity = '0';
+      p.style.willChange = 'transform,opacity';
+      faceWrap.appendChild(p);
+
+      // animate in (drop)
       requestAnimationFrame(()=>{
-        el.style.transition = 'transform 420ms cubic-bezier(.2,.9,.2,1), opacity 260ms';
-        el.style.opacity = '1';
-        el.style.transform = `translateY(0px) rotate(${360 + rand(0,360)}deg) scale(1)`;
+        p.style.transition = 'transform 420ms cubic-bezier(.2,.9,.2,1), opacity 260ms';
+        p.style.opacity = '1';
+        p.style.transform = `translateY(0px) rotate(${360 + rand(0,360)}deg) scale(1)`;
       });
 
-      // short squish + waft
-      setTimeout(()=> {
-        el.style.transition = 'transform 300ms ease-out, opacity 400ms linear';
-        el.style.transform = `translateY(-6px) rotate(15deg) scale(.88)`;
+      // squish and small waft after drop
+      setTimeout(()=>{
+        p.style.transition = 'transform 300ms ease-out, opacity 420ms linear';
+        p.style.transform = `translateY(-8px) rotate(12deg) scale(.88)`;
 
-        // little waft lines (visual only)
+        // small waft lines (purely visual)
         for(let i=0;i<2;i++){
           const w = document.createElement('div');
           w.style.position='absolute';
-          w.style.left = (pageX + rand(-8,40)) + 'px';
-          w.style.top = (pageY - 40 + rand(-10,10)) + 'px';
-          w.style.width = '2px';
-          w.style.height = '20px';
+          w.style.left = `${localX + rand(12,42)}px`;
+          w.style.top = `${localY - rand(6,16)}px`;
+          w.style.width = '2px'; w.style.height = '18px';
           w.style.borderRadius = '2px';
           w.style.background = 'linear-gradient(180deg,#8b5b2e,#8b5b2e00)';
           w.style.opacity = '0.45';
-          w.style.zIndex = 9998;
-          document.body.appendChild(w);
-          w.animate([{transform:'translateY(10px)',opacity:.45},{transform:'translateY(-14px)',opacity:0}],{duration:1200,easing:'ease-out',fill:'forwards'});
+          w.style.pointerEvents = 'none';
+          faceWrap.appendChild(w);
+          w.animate([{transform:'translateY(12px)',opacity:.45},{transform:'translateY(-12px)',opacity:0}],{duration:1200,easing:'ease-out',fill:'forwards'});
           setTimeout(()=> w.remove(), 1400);
         }
-      }, 460);
+      }, 520);
 
-      // remove after animation
-      setTimeout(()=> { el.style.opacity = '0'; setTimeout(()=> el.remove(), 420); }, 1400);
+      // fade + remove
+      setTimeout(()=> {
+        p.style.opacity = '0';
+        setTimeout(()=> { try{ p.remove(); } catch(_){} }, 480);
+      }, 1400);
     }
 
-    function throwPoopAtFaceCoord(x, y){
-      // if no coords provided, target face center
-      if(typeof x !== 'number' || typeof y !== 'number'){
-        const r = faceImg.getBoundingClientRect();
-        x = r.left + r.width/2 + window.scrollX + rand(-40,40);
-        y = r.top  + r.height/2 + window.scrollY + rand(-40,40);
-      }
-      createPoop(x,y);
-      // tiny shake of the section
-      if(poopSection){
-        poopSection.classList.add('shake');
-        setTimeout(()=> poopSection.classList.remove('shake'), 320);
-      }
+    function throwPoopAtEvent(e){
+      // prefer client coords (works for mouse & touch)
+      let cx = null, cy = null;
+      if(e.touches && e.touches[0]) { cx = e.touches[0].clientX; cy = e.touches[0].clientY; }
+      else if(typeof e.clientX === 'number') { cx = e.clientX; cy = e.clientY; }
+      createPoopAtClient(cx, cy);
+      if(poopSection){ poopSection.classList.add('shake'); setTimeout(()=> poopSection.classList.remove('shake'), 320); }
     }
 
-    // event hooking
+    // click/touch on face image -> throw at that point
     if(faceImg){
-      faceImg.addEventListener('click', (e)=> {
-        // prefer pageX/pageY if present (works with mouse)
-        const px = e.pageX || (e.clientX + window.scrollX);
-        const py = e.pageY || (e.clientY + window.scrollY);
-        throwPoopAtFaceCoord(px, py);
-      });
-      // also support touch: tap to throw at center
-      faceImg.addEventListener('touchstart', (e)=> {
-        const t = e.touches[0];
-        if(!t) return;
-        throwPoopAtFaceCoord(t.pageX, t.pageY);
-      }, {passive:true});
+      faceImg.addEventListener('click', (e)=> { e.preventDefault(); throwPoopAtEvent(e); });
+      faceImg.addEventListener('touchstart', (e)=> { e.preventDefault(); throwPoopAtEvent(e); }, {passive:false});
     }
 
+    // Throw Poop button -> throw at a random point inside face area (centerish)
     if(poopBtn){
-      poopBtn.addEventListener('click', ()=> throwPoopAtFaceCoord());
+      poopBtn.addEventListener('click', ()=> {
+        const rect = faceWrap.getBoundingClientRect();
+        const cx = rect.left + rect.width/2 + rand(-40,40);
+        const cy = rect.top  + rect.height/2 + rand(-40,40);
+        createPoopAtClient(cx - window.scrollX, cy - window.scrollY); // client coords expected
+        if(poopSection){ poopSection.classList.add('shake'); setTimeout(()=> poopSection.classList.remove('shake'), 320); }
+      });
     }
 
+    // Rapid Poops: hold to rapid-fire (mousedown/touchstart) and release to stop
     if(rapidPoop){
-      // mouse hold for rapid (desktop)
       rapidPoop.addEventListener('mousedown', ()=> {
         if(rapidInterval) return;
-        rapidInterval = setInterval(()=> throwPoopAtFaceCoord(), 160);
+        rapidInterval = setInterval(()=> {
+          const rect = faceWrap.getBoundingClientRect();
+          const cx = rect.left + rand(20, rect.width-20);
+          const cy = rect.top  + rand(20, rect.height-20);
+          createPoopAtClient(cx, cy);
+        }, 170);
       });
-      document.addEventListener('mouseup', ()=> { if(rapidInterval){ clearInterval(rapidInterval); rapidInterval = null; } });
+      document.addEventListener('mouseup', ()=> { if(rapidInterval){ clearInterval(rapidInterval); rapidInterval=null; } });
 
-      // touchstart hold for mobile
       rapidPoop.addEventListener('touchstart', (e)=> {
         if(rapidInterval) return;
-        rapidInterval = setInterval(()=> throwPoopAtFaceCoord(), 160);
-      }, {passive:true});
-      document.addEventListener('touchend', ()=> { if(rapidInterval){ clearInterval(rapidInterval); rapidInterval = null; } });
+        rapidInterval = setInterval(()=> {
+          const rect = faceWrap.getBoundingClientRect();
+          const cx = rect.left + rand(20, rect.width-20);
+          const cy = rect.top  + rand(20, rect.height-20);
+          createPoopAtClient(cx, cy);
+        }, 170);
+      }, {passive:false});
+      document.addEventListener('touchend', ()=> { if(rapidInterval){ clearInterval(rapidInterval); rapidInterval=null; } });
 
-      // single click burst
+      // also support quick click burst
       rapidPoop.addEventListener('click', ()=> {
-        let n = 8;
-        const t = setInterval(()=> { throwPoopAtFaceCoord(); if(--n<=0) clearInterval(t); }, 110);
+        let n=8;
+        const t = setInterval(()=> {
+          const rect = faceWrap.getBoundingClientRect();
+          const cx = rect.left + rand(20, rect.width-20);
+          const cy = rect.top  + rand(20, rect.height-20);
+          createPoopAtClient(cx, cy);
+          if(--n<=0) clearInterval(t);
+        }, 110);
       });
     }
 
-    /* ---------------- LETTERS content (original orders & texts preserved verbatim) ---------------- */
+    /* ---------------- LETTERS content (verbatim preserved) ---------------- */
     const LETTERS = [
       {
         title: "To the Moon and Back",
@@ -567,7 +557,6 @@
         envelope.classList.add('flipped');
         setTimeout(()=> {
           letterSheet.classList.add('visible');
-          // reveal text-lines inside letterSheet (if any)
           const nodes = $$('.letter-text-line', letterSheet);
           nodes.forEach((n, idx)=> setTimeout(()=> { n.style.opacity='1'; n.style.transform='translateY(0)'; }, 130 + idx*120));
         }, 420);
@@ -622,12 +611,12 @@
     // Pause videos on unload
     window.addEventListener('beforeunload', ()=> { $$('video').forEach(v=> { try{ v.pause(); } catch(_){} }); });
 
-    // On load: set up tabs text & render initial letter when user opens UI
+    // initial setup
     window.addEventListener('load', ()=> {
       initTabs();
-      // mark dil visible if in view immediately
+      // ensure dil visible if in view
       const dil = $('#dilPlayer');
-      if(dil) {
+      if(dil){
         const r = dil.getBoundingClientRect();
         if(r.top < window.innerHeight) dil.classList.add('visible');
       }
