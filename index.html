@@ -3,273 +3,226 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7 Letters of Sorry — For You ❤️</title>
+  <title>Apology Letters Site</title>
   <style>
-    :root{
-      --rose:#ff6b81; --rose-dark:#e63946; --pink:#ffd9e0; --bg1:#fff1f5; --bg2:#e9f0ff;
-      --ink:#2f2f38; --paper:#fffafc;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff0f5;
+      overflow-x: hidden;
+      text-align: center;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--ink);
-      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, var(--bg1), transparent),
-                  radial-gradient(1000px 800px at 120% 10%, var(--bg2), transparent),
-                  linear-gradient(135deg,#fff,#fbe9ef);
-      overflow-x:hidden;
+
+    section {
+      padding: 40px 20px;
     }
-    /* Floating hearts background */
-    .hearts{position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0}
-    .heart{position:absolute; width:12px; height:12px; background:var(--rose); transform:rotate(45deg); opacity:.25; animation: floatUp linear infinite}
-    .heart:before,.heart:after{content:""; position:absolute; width:12px; height:12px; background:var(--rose); border-radius:50%}
-    .heart:before{left:-6px}
-    .heart:after{top:-6px}
-    @keyframes floatUp{from{transform:translateY(20vh) rotate(45deg)} to{transform:translateY(-120vh) rotate(45deg)}}
 
-    /* HERO THEATER VIDEO */
-    .hero{position:relative; width:100%; height:100svh; display:grid; place-items:center; z-index:1}
-    .hero .overlay{position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.25),rgba(0,0,0,.35));}
-    .theater{position:relative; width:min(1100px,95vw); aspect-ratio:16/9; border-radius:16px; overflow:hidden; box-shadow:0 30px 60px rgba(0,0,0,.35)}
-    .theater video{width:100%; height:100%; object-fit:cover; display:block;}
-    .theater .controls{position:absolute; inset:auto 16px 16px 16px; display:flex; gap:10px; align-items:center;}
-    .btn{background:rgba(255,255,255,.9); border:none; padding:10px 14px; border-radius:999px; font-weight:600; cursor:pointer}
-    .btn:hover{background:#fff}
-    .hero-title{position:absolute; top:18px; left:50%; transform:translateX(-50%); color:#fff; font-weight:800; letter-spacing:.5px; text-shadow:0 2px 12px rgba(0,0,0,.6)}
+    video.bg-video {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: cover;
+    }
 
-    header{padding:40px 18px 10px; text-align:center; z-index:1; position:relative}
-    header h1{margin:.2rem 0; font-size:clamp(1.4rem,2.4vw,2rem); color:var(--rose-dark)}
-    header p{margin:0; opacity:.8}
+    h1, h2 {
+      color: #d63384;
+    }
 
-    /* Donkey photo section */
-    .photo-wrap{position:relative; max-width:720px; margin:24px auto 40px; border-radius:22px; overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,.12)}
-    .photo-wrap img{width:100%; display:block}
-    /* SVG donkey bits overlay */
-    .ears, .tail{position:absolute; pointer-events:none}
-    .ears{top:8%; left:22%; width:28%}
-    .tail{right:6%; bottom:18%; width:12%; transform:rotate(18deg)}
-    .caption{position:absolute; bottom:10px; right:12px; background:rgba(255,255,255,.85); padding:8px 12px; border-radius:14px; font-weight:700; color:#444}
+    .letters button {
+      background: #ff85a2;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .letters button:hover {
+      background: #ff527a;
+    }
+    .letter-content {
+      display: none;
+      margin: 10px auto;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: left;
+    }
 
-    /* Letter grid */
-    .section{position:relative; z-index:1; padding:24px 18px 64px}
-    .section h2{font-size:clamp(1.4rem,3.4vw,2.2rem); text-align:center; margin:0 0 14px; color:var(--rose-dark)}
-    .muted{text-align:center; opacity:.7; margin-bottom:26px}
-    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:16px; max-width:1100px; margin:0 auto}
-    .envelope{background:var(--paper); border:2px dashed #ffd0da; border-radius:18px; padding:20px; text-align:center; cursor:pointer; transition:.2s; position:relative}
-    .envelope:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(0,0,0,.08)}
-    .envelope:after{content:"✉️"; position:absolute; top:10px; right:12px; opacity:.5}
+    #typewriter {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #ff2e63;
+      min-height: 50px;
+    }
 
-    /* Modal letter */
-    .modal{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:18px; z-index:10}
-    .card{background:var(--paper); max-width:min(740px,96vw); max-height:86vh; overflow:auto; border-radius:20px; box-shadow:0 24px 60px rgba(0,0,0,.35); padding:26px 22px; position:relative}
-    .close{position:absolute; top:10px; right:12px; border:none; background:#ffe3ea; color:#a21; border-radius:999px; padding:8px 12px; cursor:pointer; font-weight:700}
-    .letter-title{font-family: "Georgia",serif; font-weight:800; margin:.2rem 0 10px; color:var(--rose-dark)}
-    .letter-text{white-space:pre-wrap; line-height:1.6; font-family: "Georgia", serif}
-    .edit-area{width:100%; height:40vh; padding:12px; font-family:inherit; border:1px solid #ffd0da; border-radius:12px}
-    .editor-bar{display:flex; gap:10px; margin:12px 0}
+    .heart {
+      position: fixed;
+      font-size: 20px;
+      color: #ff2e63;
+      pointer-events: none;
+      animation: floatUp 2s linear forwards;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100px); opacity: 0; }
+    }
 
-    /* Dil Ka Jo Haal Hai */
-    .dil{max-width:980px; margin:0 auto; display:grid; place-items:center}
-    .dil .frame{position:relative; width:100%; aspect-ratio:16/9; border-radius:18px; overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,.18); background:#000}
-    .dil .playCover{position:absolute; inset:0; display:grid; place-items:center; color:#fff; font-weight:800; letter-spacing:.5px; background:radial-gradient(800px 400px at 50% 50%, rgba(0,0,0,.25), rgba(0,0,0,.55)); cursor:pointer}
-    .pill{background:#fff; border:none; border-radius:999px; padding:10px 14px; font-weight:700; cursor:pointer}
+    .pie-section img {
+      max-width: 250px;
+      border-radius: 20px;
+    }
+    .pie-button {
+      background: #ffcc00;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+    .pie-button:hover {
+      background: #ff9900;
+    }
+    .pie {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      pointer-events: none;
+      animation: splat 0.8s ease forwards;
+    }
+    @keyframes splat {
+      0% { transform: scale(0.2) rotate(0deg); opacity: 1; }
+      70% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+      100% { transform: scale(1) rotate(360deg); opacity: 0; }
+    }
 
-    footer{padding:36px 18px; text-align:center; opacity:.7}
+    iframe.spotify {
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
-  <!-- floating hearts -->
-  <div class="hearts" aria-hidden="true" id="hearts"></div>
 
-  <!-- HERO / THEATER INTRO VIDEO -->
-  <section class="hero" id="hero">
-    <div class="overlay"></div>
-    <h3 class="hero-title">Cinematic Intro — For You ❤️</h3>
-    <div class="theater" id="theaterBox">
-      <video id="introVideo" playsinline muted autoplay loop>
-        <source src="/mnt/data/Perfect Together - Made with Clipchamp.mp4" type="video/mp4" />
-      </video>
-      <div class="controls">
-        <button class="btn" id="muteBtn">Unmute 🔊</button>
-        <button class="btn" id="pauseBtn">Pause ⏸️</button>
-      </div>
-    </div>
+  <!-- Intro Video -->
+  <section>
+    <video class="bg-video" autoplay muted loop id="introVideo">
+      <source src="Perfect Together - Made with Clipchamp.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
   </section>
 
-  <header>
-    <h1>From the Stupidest Donkey Alive… to the Luckiest One Because of You</h1>
-    <p>I made these 7 letters for you. Open them whenever you want, however you feel. 🫶</p>
-  </header>
-
-  <!-- Donkey-fied photo (with SVG ears/tail overlays) -->
-  <div class="photo-wrap">
-    <img src="/mnt/data/WhatsApp Image 2025-08-28 at 19.07.40_74f91d85.jpg" alt="My photo" />
-    <!-- cute SVG donkey ears -->
-    <svg class="ears" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M30 110 C 5 40, 40 5, 70 40 C 85 60, 60 100, 30 110 Z" fill="#a08d7a" stroke="#705e4d" stroke-width="3"/>
-      <path d="M170 110 C 195 40, 160 5, 130 40 C 115 60, 140 100, 170 110 Z" fill="#a08d7a" stroke="#705e4d" stroke-width="3"/>
-      <ellipse cx="50" cy="70" rx="12" ry="26" fill="#c9b7a0"/>
-      <ellipse cx="150" cy="70" rx="12" ry="26" fill="#c9b7a0"/>
-    </svg>
-    <!-- cute SVG tail -->
-    <svg class="tail" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M20 20 C 80 80, 30 150, 70 210" stroke="#705e4d" stroke-width="10" fill="none" stroke-linecap="round"/>
-      <path d="M64 200 C 90 210, 105 215, 110 218" stroke="#3b2e25" stroke-width="8" fill="none" stroke-linecap="round"/>
-    </svg>
-    <div class="caption">Certified Silly Donkey — but forever yours 💘</div>
-  </div>
-
-  <!-- Letters -->
-  <section class="section" id="letters">
-    <h2>The 7 Letters of Sorry</h2>
-    <p class="muted">Tap an envelope to open. Toggle <b>Edit Mode</b> to paste your letters and they’ll save to your browser automatically.
-    <br><button class="pill" id="toggleEdit">✏️ Edit Mode: Off</button></p>
-
-    <div class="grid">
-      <div class="envelope" onclick="openLetter(1)">Letter 1: I'm Sorry</div>
-      <div class="envelope" onclick="openLetter(2)">Letter 2: When You're Angry</div>
-      <div class="envelope" onclick="openLetter(3)">Letter 3: When You're Sad</div>
-      <div class="envelope" onclick="openLetter(4)">Letter 4: When You Miss Me</div>
-      <div class="envelope" onclick="openLetter(5)">Letter 5: Reasons I Love You</div>
-      <div class="envelope" onclick="openLetter(6)">Letter 6: Future Promise</div>
-      <div class="envelope" onclick="openLetter(7)">Letter 7: Open Last</div>
+  <!-- Letters Section -->
+  <section class="letters">
+    <h2>Our Letters ❤️</h2>
+    <div>
+      <button onclick="toggleLetter(1)">Letter 1</button>
+      <button onclick="toggleLetter(2)">Letter 2</button>
+      <button onclick="toggleLetter(3)">Letter 3</button>
+      <button onclick="toggleLetter(4)">Letter 4</button>
+      <button onclick="toggleLetter(5)">Letter 5</button>
+      <button onclick="toggleLetter(6)">Letter 6</button>
+      <button onclick="toggleLetter(7)">Letter 7</button>
     </div>
+    <div id="letter1" class="letter-content">Letter 1 text goes here…</div>
+    <div id="letter2" class="letter-content">Letter 2 text goes here…</div>
+    <div id="letter3" class="letter-content">Letter 3 text goes here…</div>
+    <div id="letter4" class="letter-content">Letter 4 text goes here…</div>
+    <div id="letter5" class="letter-content">Letter 5 text goes here…</div>
+    <div id="letter6" class="letter-content">Letter 6 text goes here…</div>
+    <div id="letter7" class="letter-content">Letter 7 text goes here…</div>
   </section>
 
-  <!-- Dil Ka Jo Haal Hai section -->
-  <section class="section" id="dil">
-    <h2>💓 Dil Ka Jo Haal Hai</h2>
-    <p class="muted">Tap to play with sound. Hearts will keep you company.</p>
-    <div class="dil">
-      <div class="frame">
-        <video id="dilVideo" preload="metadata">
-          <source src="/mnt/data/WhatsApp Video 2025-08-28 at 19.07.08_4af4a3e5.mp4" type="video/mp4" />
-        </video>
-        <div class="playCover" id="dilCover">▶️ Tap to Play</div>
-      </div>
-    </div>
+  <!-- Dil Section Video -->
+  <section>
+    <video controls width="90%">
+      <source src="WhatsApp Video 2024-07-14 at 01.06.46_3c6327b2.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
   </section>
 
-  <!-- Modal for letters -->
-  <div class="modal" id="modal">
-    <div class="card">
-      <button class="close" onclick="closeModal()">✕</button>
-      <h3 class="letter-title" id="ltitle"></h3>
-      <div id="lcontent" class="letter-text"></div>
-      <div id="editor" style="display:none">
-        <div class="editor-bar">
-          <button class="pill" onclick="saveLetter()">💾 Save</button>
-          <button class="pill" onclick="resetLetter()">↩️ Reset</button>
-        </div>
-        <textarea class="edit-area" id="editArea"></textarea>
-      </div>
-    </div>
-  </div>
+  <!-- Donkey Love Photo -->
+  <section>
+    <h2>Us 🫏❤️</h2>
+    <img src="donkey love.jpg" alt="Donkey Love" style="max-width: 90%; border-radius: 20px;" />
+  </section>
 
-  <footer>Made with way too much love (and a little donkey energy) 🫏❤️</footer>
+  <!-- Typewriter Section -->
+  <section>
+    <h2>Reveal My Feelings 💌</h2>
+    <button onclick="startTypewriter()">Reveal</button>
+    <div id="typewriter"></div>
+  </section>
+
+  <!-- Pie My Face Section -->
+  <section class="pie-section">
+    <h2>Pie My Face! 🥧😂</h2>
+    <img src="donkey love.jpg" alt="Your Face" id="faceImg" />
+    <br>
+    <button class="pie-button" onclick="throwPie()">Throw Pie!</button>
+  </section>
+
+  <!-- Music -->
+  <section>
+    <h2>Our Song 🎶</h2>
+    <iframe class="spotify" src="https://open.spotify.com/embed/track/5Y5c5bJK0O7KJDDAYKkppH?utm_source=generator" width="300" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  </section>
 
   <script>
-    /* floating hearts */
-    const hearts = document.getElementById('hearts');
-    for(let i=0;i<40;i++){
-      const h=document.createElement('div');
-      h.className='heart';
-      h.style.left = Math.random()*100+'%';
-      h.style.animationDuration = 6+Math.random()*10+'s';
-      h.style.animationDelay = -Math.random()*10+'s';
-      h.style.opacity = 0.12 + Math.random()*0.25;
-      hearts.appendChild(h);
+    // Toggle Letters
+    function toggleLetter(num) {
+      document.querySelectorAll('.letter-content').forEach(div => div.style.display = 'none');
+      const letter = document.getElementById('letter' + num);
+      if (letter) letter.style.display = 'block';
     }
 
-    /* HERO video autoplay + pause on scroll */
-    const intro = document.getElementById('introVideo');
-    const muteBtn = document.getElementById('muteBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
-
-    muteBtn.addEventListener('click',()=>{
-      intro.muted = !intro.muted;
-      muteBtn.textContent = intro.muted ? 'Unmute 🔊' : 'Mute 🔇';
-      if(!intro.paused) intro.play().catch(()=>{});
-    });
-    pauseBtn.addEventListener('click',()=>{
-      if(intro.paused){ intro.play(); pauseBtn.textContent='Pause ⏸️'; }
-      else { intro.pause(); pauseBtn.textContent='Play ▶️'; }
-    });
-
-    const io = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ intro.play().catch(()=>{}); }
-        else { intro.pause(); }
-      });
-    }, {threshold: .25});
-    io.observe(document.getElementById('hero'));
-
-    /* Letters data with localStorage */
-    const defaults = {
-      1:{title:"I'm Sorry", text:`My Love,
-
-I think I might just be the most stupid person in this whole wide world. Stupid for messing up, and for not showing you every day how much you mean to me.
-
-But one thing I'll never be stupid about is knowing how lucky I am to have you. However imperfect I am, I will always be your biggest follower, your biggest supporter, and your biggest love‑giver.
-
-I'm sorry for everything. I will do better, love harder, and never stop trying until your smile is back.
-
-Forever yours,
-[Your Name]`},
-      2:{title:"When You're Angry", text:"Write this letter…"},
-      3:{title:"When You're Sad", text:"Write this letter…"},
-      4:{title:"When You Miss Me", text:"Write this letter…"},
-      5:{title:"Reasons I Love You", text:"List 5–10 reasons here…"},
-      6:{title:"Future Promise", text:"Your promises go here…"},
-      7:{title:"Open Last", text:"Your final emotional note…"}
-    };
-
-    function loadLetter(n){
-      const saved = localStorage.getItem('letter'+n);
-      return saved ? JSON.parse(saved) : defaults[n];
+    // Typewriter Effect
+    const message = "I love you to the moon and back and much much more. I love you sooo much ❤️";
+    let i = 0;
+    function startTypewriter() {
+      document.getElementById('typewriter').innerHTML = '';
+      i = 0;
+      typeWriter();
     }
-    function storeLetter(n, obj){ localStorage.setItem('letter'+n, JSON.stringify(obj)); }
-
-    let current = 1; let editMode = false;
-    const modal = document.getElementById('modal');
-    const ltitle = document.getElementById('ltitle');
-    const lcontent = document.getElementById('lcontent');
-    const editorBox = document.getElementById('editor');
-    const editArea = document.getElementById('editArea');
-
-    document.getElementById('toggleEdit').addEventListener('click', e=>{
-      editMode = !editMode; e.target.textContent = `✏️ Edit Mode: ${editMode? 'On':'Off'}`;
+    function typeWriter() {
+      if (i < message.length) {
+        document.getElementById('typewriter').innerHTML += message.charAt(i);
+        spawnHeart();
+        i++;
+        setTimeout(typeWriter, 80);
+      }
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'l') startTypewriter();
     });
 
-    window.openLetter = function(n){
-      current = n;
-      const data = loadLetter(n);
-      ltitle.textContent = data.title;
-      lcontent.textContent = data.text;
-      editorBox.style.display = editMode ? 'block' : 'none';
-      if(editMode){ editArea.value = data.text; }
-      modal.style.display='flex';
-    }
-    window.closeModal = function(){ modal.style.display='none'; }
-    window.saveLetter = function(){
-      const d = loadLetter(current);
-      d.text = editArea.value; storeLetter(current, d);
-      lcontent.textContent = d.text;
-      alert('Saved locally ✔️');
-    }
-    window.resetLetter = function(){
-      storeLetter(current, defaults[current]);
-      lcontent.textContent = defaults[current].text;
-      editArea.value = defaults[current].text;
+    // Floating Hearts
+    document.addEventListener('click', spawnHeart);
+    function spawnHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = window.innerHeight - 20 + 'px';
+      heart.innerHTML = '❤';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
     }
 
-    // Dil Ka Jo Haal Hai video behaviour
-    const dv = document.getElementById('dilVideo');
-    const cover = document.getElementById('dilCover');
-    cover.addEventListener('click', ()=>{
-      dv.muted = false; cover.style.display='none'; dv.play();
-    });
-    dv.addEventListener('pause', ()=>{ if(dv.currentTime===0) cover.style.display='grid'; });
+    // Pie My Face
+    function throwPie() {
+      const pie = document.createElement('img');
+      pie.src = 'pie.png';
+      pie.className = 'pie';
+      const face = document.getElementById('faceImg');
+      const rect = face.getBoundingClientRect();
+      pie.style.left = rect.left + rect.width/2 - 50 + 'px';
+      pie.style.top = rect.top + window.scrollY + rect.height/3 + 'px';
+      document.body.appendChild(pie);
+      setTimeout(() => pie.remove(), 800);
+    }
   </script>
 </body>
 </html>
