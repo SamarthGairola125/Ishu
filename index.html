@@ -42,7 +42,6 @@
     .center{text-align:center}
     .muted{color:var(--muted)}
     button{font-weight:700}
-    /* small shiny buttons */
     .btn{
       background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
       border:1px solid rgba(0,0,0,0.06);
@@ -56,32 +55,28 @@
     .spark{position:absolute;width:10px;height:10px;border-radius:50%;background:linear-gradient(180deg,#fff,#ffd1e0);opacity:.9;filter:blur(.6px);transform:translateY(10vh);}
 
     /* -------------------- header / headline -------------------- */
-    header{padding:18px 12px 6px;z-index:2}
-    .brand{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand h1{font-size:clamp(1.2rem,2.4vw,1.8rem);color:var(--rose-deep);cursor:pointer;display:inline-block;animation:glow 2.6s infinite;user-select:none}
-    @keyframes glow{
-      0%{text-shadow:0 0 0 rgba(230,60,100,0)}
-      50%{text-shadow:0 10px 30px rgba(230,60,100,.14)}
-      100%{text-shadow:0 0 0 rgba(230,60,100,0)}
+    header{
+      position:sticky;top:0;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.6));
+      backdrop-filter: blur(10px);border-bottom:1px solid rgba(255,220,235,.7); z-index:5;
     }
-    .subtitle{color:var(--muted);font-size:.95rem}
+    .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    #brandTitle{font-size:1.6rem;font-weight:800;letter-spacing:0.3px}
+    .subtitle{font-size:.95rem}
 
-    /* -------------------- sections -------------------- */
-    section.block{margin:24px auto;padding:18px;border-radius:18px;background:linear-gradient(180deg,var(--card),#fffafc);box-shadow:var(--shadow);position:relative;z-index:2}
-    .section-title{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:12px}
-    .section-title h2{font-size:1.25rem;color:var(--rose-deep);margin:0}
+    /* -------------------- section blocks -------------------- */
+    .block{background:var(--card);border-radius:16px;padding:18px;margin:16px 0;box-shadow:var(--shadow)}
+    .section-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .section-title h2{font-size:1.2rem}
 
-    /* -------------------- DONKEY photo (fun) -------------------- */
-    .donkey {display:grid;grid-template-columns:1fr;align-items:center;gap:12px;padding:20px;}
-    .donkey-card{position:relative;overflow:hidden;border-radius:18px;padding:12px;background:linear-gradient(180deg,#fff,#fff9fb);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+    /* -------------------- DONKEY -------------------- */
+    .donkey-card{position:relative;overflow:hidden;border-radius:12px}
     .donkey-img{width:100%;height:480px;max-height:64vh;object-fit:cover;border-radius:12px;transform-origin:center center;opacity:0;transform:scale(1.06);transition:transform .9s cubic-bezier(.2,.9,.2,1),opacity .9s}
     .donkey-img.loaded{opacity:1;transform:scale(1);}
     .donkey-img:hover{transform:scale(1.02) rotate(-1deg) translateY(-4px)}
-    /* little hearts near donkey */
     .donkey-heart{position:absolute;pointer-events:none;right:20px;bottom:20px;font-size:28px;opacity:.95;transform:translateY(20px);animation:pop 1.6s infinite ease-in-out;}
     @keyframes pop{0%{transform:translateY(0) scale(.95)}50%{transform:translateY(-8px) scale(1.05)}100%{transform:translateY(0) scale(.95)}}
 
-    /* -------------------- DIL KA HAAL (romantic) -------------------- */
+    /* -------------------- DIL KA HAAL -------------------- */
     .dil-wrap{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:20px}
     .heart-frame{position:relative;border-radius:20px;padding:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
     .heart-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 20%, rgba(246, 187, 208, .12), transparent 15%);pointer-events:none}
@@ -92,99 +87,59 @@
       background:#000;
     }
     .dil-player.visible{transform:translateY(0);opacity:1}
-    /* pulsing heart border */
     .heart-pulse{position:absolute;inset:-8px;border-radius:26px;pointer-events:none;box-shadow:0 0 0 0 rgba(230,60,100,0.08);animation:beat 1.6s infinite;mix-blend-mode:screen}
-    @keyframes beat{
-      0%{box-shadow:0 0 0 0 rgba(230,60,100,.08)}
-      40%{box-shadow:0 0 30px 8px rgba(230,60,100,.08)}
-      100%{box-shadow:0 0 0 0 rgba(230,60,100,.08)}
-    }
+    @keyframes beat{0%{box-shadow:0 0 0 0 rgba(230,60,100,.08)}40%{box-shadow:0 0 30px 8px rgba(230,60,100,.08)}100%{box-shadow:0 0 0 0 rgba(230,60,100,.08)}}
     .music-note{position:absolute;width:24px;height:24px;opacity:.12;filter:blur(.6px)}
 
-    /* -------------------- THEATER (Perfect Together) -------------------- */
+    /* -------------------- THEATER -------------------- */
     .theater-wrap{position:relative;padding:0 12px}
     .curtains{position:relative;height:0;overflow:visible}
-    .curtain{position:absolute;top:-8px;width:50%;height:260px;background:linear-gradient(180deg,#a62b6a,#6b1239);transform-origin:top;box-shadow:inset 0 -30px 40px rgba(0,0,0,.25);border-radius:0 0 120px 120px;transition:transform 1s cubic-bezier(.2,.9,.2,1)}
-    .curtain.left{left:0;transform:translateX(-6%) skewX(-6deg)}
-    .curtain.right{right:0;transform:translateX(6%) skewX(6deg)}
-    .curtain.open.left{transform:translateX(-120%) skewX(-6deg)}
-    .curtain.open.right{transform:translateX(120%) skewX(6deg)}
-    .screen{margin-top:18px;border-radius:14px;overflow:hidden;background:#000;padding:8px;box-shadow:0 30px 80px rgba(0,0,0,.28)}
-    /* make both <video> and <iframe> supported */
-    .screen .media-frame{display:block;width:100%;height:60vh;max-height:420px;object-fit:cover;opacity:0;transform:scale(.98);transition:opacity .8s,transform .8s;border:0}
-    .screen.visible .media-frame{opacity:1;transform:scale(1)}
+    .curtain{position:absolute;top:-2px;bottom:-2px;width:52%;background:linear-gradient(180deg,#7a0c23,#b51a3c);box-shadow:inset 0 0 30px rgba(0,0,0,.25)}
+    .curtain.left{left:-2px;border-radius:12px 0 0 12px;transform:translateX(0)}
+    .curtain.right{right:-2px;border-radius:0 12px 12px 0;transform:translateX(0)}
+    .screen{position:relative;border-radius:16px;overflow:hidden;background:#000;box-shadow:var(--shadow)}
+    .screen .media-frame{width:100%;height:56.25vw;max-height:60vh;border:0;display:block}
 
-    .popcorn{position:absolute;pointer-events:none;opacity:.12}
-
-    /* -------------------- PIE (silly) -------------------- */
-    .pie-area{display:grid;grid-template-columns:1fr;gap:12px;padding:20px;align-items:center}
-    .face-wrap{position:relative;max-width:560px;margin:0 auto;border-radius:16px;overflow:visible}
-    .face-img{width:100%;height:auto;border-radius:12px;display:block;transform-origin:center center;transition:transform .3s}
-    .pie-button{background:linear-gradient(180deg,#ffd65e,#ffb703);border:none;padding:12px;border-radius:12px;font-weight:800;cursor:pointer}
-    .pie-img{position:absolute;width:140px;height:140px;pointer-events:none;border-radius:20px;transform-origin:center center;will-change:transform,opacity}
-
-    /* splat drip (CSS pseudo, we will create element) */
-    .shake{animation:shake .28s ease-in-out}
-    @keyframes shake{
-      0%{transform:translateX(0)}
-      25%{transform:translateX(-8px)}
-      50%{transform:translateX(8px)}
-      75%{transform:translateX(-6px)}
-      100%{transform:translateX(0)}
+    /* -------------------- POOP MY FACE (formerly Pie) -------------------- */
+    .pie-area .face-wrap{position:relative;display:flex;justify-content:center}
+    .face-img{width:260px;height:260px;border-radius:50%;object-fit:cover;box-shadow:var(--soft-shadow);border:6px solid #ffe4ee;cursor:pointer;user-select:none}
+    .pie-button{
+      background:linear-gradient(180deg,#fff,#ffeeee);
+      border:1px solid #ffd4df; padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:800;
+      box-shadow:var(--soft-shadow)
     }
+    .pie-button:hover{transform:translateY(-2px)}
+    .poop-emoji{
+      position:absolute; font-size:64px; line-height:1; will-change:transform, opacity;
+      pointer-events:none; user-select:none; filter: drop-shadow(0 8px 30px rgba(0,0,0,.15));
+      transform: translateY(-200px) scale(.6) rotate(0deg); opacity:0;
+    }
+    #pieSection.shake{animation:shake .3s}
+    @keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}100%{transform:translateX(0)}}
 
-    /* -------------------- LETTER interaction -------------------- */
-    .letter-area{padding:30px 18px;display:flex;flex-direction:column;gap:12px;align-items:center}
-    #letterHeadline{font-size:1.4rem;color:var(--rose-deep);cursor:pointer;display:inline-block;padding:8px 14px;border-radius:999px;background:linear-gradient(180deg,#fff,#fffaf6);box-shadow:var(--soft-shadow);transition:transform .28s,box-shadow .28s;animation:headlinePulse 3s infinite}
-    @keyframes headlinePulse{
-      0%{transform:scale(1);box-shadow:0 10px 40px rgba(230,60,100,0)}
-      50%{transform:scale(1.02);box-shadow:0 18px 60px rgba(230,60,100,.05)}
-      100%{transform:scale(1);box-shadow:0 10px 40px rgba(230,60,100,0)}
-    }
-
-    .envelope-viewport{height:320px;width:360px;position:relative;perspective:1200px;margin-top:8px}
-    .envelope{
-      width:100%;height:100%;position:absolute;left:0;top:0;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.9,.2,1);cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
-    }
-    .envelope .face{
-      position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,#ffdfe9,#fff);box-shadow:0 10px 40px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--rose-deep);font-size:1.2rem;backface-visibility:hidden;
-    }
-    .envelope .back{
-      position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,#fff6fa,#fff);box-shadow:0 4px 16px rgba(0,0,0,.08);transform:rotateY(180deg);backface-visibility:hidden;padding:18px;font-size:.95rem;color:#333;overflow:hidden;
-    }
-    .envelope.enter{animation:bounceIn .7s both}
-    @keyframes bounceIn{0%{transform:translateY(-40vh) scale(.6) rotate(-6deg)}60%{transform:translateY(10px) scale(1.02)}100%{transform:translateY(0) scale(1) rotate(0)}}
-    .envelope.flipped{transform:rotateY(180deg) translateZ(0)}
-
+    /* -------------------- LETTERS -------------------- */
+    .letter-area .center{display:flex;flex-direction:column;align-items:center}
+    #letterHeadline{font-weight:800;color:#a62b6a;background:linear-gradient(180deg,#fff,#fffaf6);padding:10px 14px;border-radius:999px;border:1px solid #ffdfe9;cursor:pointer;box-shadow:var(--soft-shadow)}
+    .envelope-viewport{position:relative;width:70%;height:300px;margin:14px auto;perspective:1200px;display:grid;place-items:center}
+    .envelope{position:relative;width:100%;height:100%;border-radius:16px;background:linear-gradient(180deg,#ffe6ee,#fff);box-shadow:var(--shadow);transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.2,1);cursor:pointer}
+    .envelope .face,.envelope .back{position:absolute;inset:0;border-radius:16px;display:grid;place-items:center;font-weight:800;color:#a62b6a}
+    .envelope .face{backface-visibility:hidden}
+    .envelope .back{transform:rotateY(180deg);background:linear-gradient(180deg,#fff,#ffe6ee)}
+    .envelope.flipped{transform:rotateY(180deg)}
     .letter-sheet{
-      position:absolute;width:86%;left:7%;top:62%;transform:translateY(18px);background:var(--parchment);
-      padding:18px 16px 22px;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.12);opacity:0;
-      transition:transform .6s cubic-bezier(.2,.9,.2,1),opacity .6s;
-      background-image: radial-gradient(ellipse at top left, rgba(230,60,100,0.05), transparent 40%),
-                        linear-gradient(transparent 24px, rgba(0,0,0,.04) 25px, transparent 26px);
-      background-size: 100% 100%, 100% 28px;
-      font-family: "Crimson Pro", Georgia, serif;
+      position:absolute;inset:8px;border-radius:12px;background:var(--parchment);box-shadow:inset 0 0 0 2px #ffe4ec, var(--soft-shadow);
+      transform:translateY(6px) scale(.98);opacity:0;transition:transform .6s cubic-bezier(.2,.9,.2,1),opacity .6s;
+      padding:16px 18px 12px 18px;font-family: "Crimson Pro", Georgia, serif; color:#5b2d38; overflow:hidden
     }
-    .letter-sheet.visible{opacity:1;transform:translateY(-120px)}
-    .letter-title{font-family:"Great Vibes", cursive; font-size:1.4rem; color:#a8334a; text-align:center; margin-bottom:6px}
-    .letter-meta{display:flex; align-items:center; justify-content:space-between; margin:4px 0 10px 0; font-size:.85rem; color:#a0777a}
-    .wax-seal{
-      position:absolute; right:-8px; bottom:-10px; width:64px; height:64px; border-radius:999px; background:radial-gradient(circle at 30% 30%, #d63b57, var(--seal));
-      box-shadow:0 6px 16px rgba(0,0,0,.25), inset 0 4px 10px rgba(0,0,0,.25);
-      display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; transform:rotate(-8deg)
-    }
-    .stamp{
-      position:absolute; top:6px; right:8px; border:2px dashed rgba(166,43,106,.35); padding:6px 10px; border-radius:6px; font-size:.8rem; color:#a62b6a; transform:rotate(6deg); background:#fff8fc
-    }
+    .letter-sheet.visible{opacity:1;transform:translateY(0) scale(1)}
+    .stamp{position:absolute;right:16px;top:12px;border:2px dashed #d46; padding:6px 12px; border-radius:6px; font-size:.85rem; opacity:.8}
+    .letter-meta{display:flex;justify-content:space-between;color:#9a435b;margin-bottom:8px;font-weight:700}
+    .letter-title{font-family:"Great Vibes", cursive;font-size:1.8rem;margin-top:2px;color:#a62b6a}
     .letter-content{max-height:270px; overflow:auto; padding-right:6px}
     .letter-content ul{margin:8px 0 0 18px}
     .letter-content li{margin:6px 0}
     .signature{margin-top:8px; font-family:"Great Vibes", cursive; font-size:1.3rem; color:#a8334a; text-align:right}
-
     .letter-text-line{opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
-
-    /* editor & save */
     .editor-ui{display:flex;flex-direction:column;gap:8px;margin-top:8px;width:88%}
     textarea.editor{width:100%;min-height:180px;padding:12px;border-radius:8px;border:1px solid #ffdfe9;font-family:Georgia,serif;font-size:1rem}
     .letter-tabs{display:flex; gap:6px; justify-content:center; margin-top:8px}
@@ -199,8 +154,6 @@
       .envelope-viewport{width:92%;height:260px}
       .letter-content{max-height:220px}
     }
-
-    /* prefers reduced motion */
     @media (prefers-reduced-motion: reduce){
       .donkey-img,.dil-player,.screen .media-frame,.letter-sheet{transition:none!important;animation:none!important}
     }
@@ -223,8 +176,8 @@
     </div>
   </header>
 
-  <!-- DONKEY -->
   <main class="container">
+    <!-- DONKEY -->
     <section class="block donkey" id="donkeySection" aria-labelledby="donkeyTitle">
       <div class="section-title"><h2 id="donkeyTitle">🐴 Donkey Love</h2></div>
       <div class="donkey-card">
@@ -245,7 +198,6 @@
             Your browser doesn't support this video.
           </video>
         </div>
-        <!-- floating musical notes (JS will spawn) -->
       </div>
     </section>
 
@@ -257,7 +209,6 @@
         <div class="curtain right" id="curtainRight"></div>
       </div>
       <div class="screen" id="screen">
-        <!-- Swapped local MP4 for Drive embed (keeps the same reveal animation) -->
         <iframe
           id="perfectFrame"
           class="media-frame"
@@ -268,23 +219,22 @@
       </div>
     </section>
 
-    <!-- PIE -->
+    <!-- POOP (replaces PIE) -->
     <section class="block pie-area" id="pieSection" aria-labelledby="pieTitle">
-      <div class="section-title"><h2 id="pieTitle">🥧 Pie My Face (for fun)</h2></div>
+      <div class="section-title"><h2 id="pieTitle">💩 Poop My Face (for fun)</h2></div>
       <div class="face-wrap">
-        <img id="faceImg" class="face-img" src="donkeyLove.jpg" alt="Face image for pie">
-        <!-- pies will be created dynamically -->
+        <img id="faceImg" class="face-img" src="donkeyLove.jpg" alt="Face image for poop">
+        <!-- poops will be created dynamically -->
       </div>
       <div style="display:flex;gap:10px;justify-content:center;margin-top:10px">
-        <button class="pie-button" id="pieBtn">Throw Pie!</button>
-        <button class="pie-button" id="rapidPie">Rapid Pies</button>
+        <button class="pie-button" id="pieBtn">Throw Poop!</button>
+        <button class="pie-button" id="rapidPie">Rapid Poops</button>
       </div>
     </section>
 
     <!-- LETTERS -->
     <section class="block letter-area" id="lettersSection" aria-labelledby="lettersTitle">
       <div class="section-title"><h2 id="lettersTitle">💌 The 3 Letters</h2></div>
-
       <div class="center">
         <div id="letterHeadline" role="button" tabindex="0" aria-pressed="false">Click to reveal the envelope</div>
 
@@ -298,7 +248,6 @@
           <div class="envelope enter" id="envelope" role="button" tabindex="0" aria-label="Envelope — click to open">
             <div class="face">📩 Open Me</div>
             <div class="back">Envelope back</div>
-            <!-- letter sheet -->
             <div class="letter-sheet" id="letterSheet" aria-hidden="true">
               <div class="stamp">Love Mail</div>
               <div class="letter-meta"><span id="letterCount">Letter 1 of 3</span><span>for Ishani</span></div>
@@ -323,10 +272,8 @@
             <button class="btn" id="resetLetter">Reset current</button>
           </div>
         </div>
-
       </div>
     </section>
-
   </main>
 
   <footer style="padding:30px 12px;text-align:center;opacity:.85">
@@ -350,148 +297,151 @@
         const top = Math.random()*100;
         el.style.left = left + '%';
         el.style.top = top + '%';
-        el.style.width = (6 + Math.random()*12)+'px';
-        el.style.height = el.style.width;
-        el.style.opacity = (0.05 + Math.random()*0.25);
+        const dur = random(10,22).toFixed(2)+'s';
+        const delay = (-1 * random(0,10)).toFixed(2)+'s';
+        el.style.animation = `float ${dur} linear ${delay} infinite`;
         root.appendChild(el);
-        // subtle float
-        (function anim(e){
-          const dx = (Math.random()-0.5)*20;
-          const dy = (Math.random()*18)+6;
-          e.animate([
-            { transform: `translateY(0) translateX(0)`, opacity: e.style.opacity },
-            { transform: `translateY(-${dy}px) translateX(${dx}px)`, opacity: 0.02 }
-          ], { duration: 4000 + Math.random()*4000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' });
-        })(el);
       }
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes float { 0%{ transform: translateY(12vh) } 50%{ transform: translateY(-8vh) } 100%{ transform: translateY(12vh) } }
+      `;
+      document.head.appendChild(style);
     })();
 
-    /* -------------------- donkey photo load animation & hearts on click -------------------- */
+    /* -------------------- DONKEY little heart + load effect -------------------- */
     const donkeyImg = $('#donkeyImg');
-    donkeyImg.addEventListener('load', ()=>{ donkeyImg.classList.add('loaded'); });
-    // clicking anywhere spawns small hearts (except on buttons or editors)
-    document.addEventListener('click', (e)=>{
-      if(e.target.closest('.btn') || e.target.closest('textarea') || e.target.closest('.editor')) return;
-      spawnHeartAt(e.clientX, e.clientY);
-    });
-    function spawnHeartAt(x,y){
-      const h = document.createElement('div');
-      h.textContent = '💗';
-      h.style.position='fixed';
-      h.style.left = (x - 12)+'px';
-      h.style.top = (y - 12)+'px';
-      h.style.fontSize = (12 + Math.random()*18)+'px';
-      h.style.pointerEvents='none';
-      h.style.opacity=1;
-      h.style.transform = `translateY(0) rotate(${Math.random()*40-20}deg)`;
-      h.style.transition = 'transform 1200ms linear, opacity 1200ms linear';
-      document.body.appendChild(h);
-      setTimeout(()=> h.style.transform = `translateY(-140px) rotate(${Math.random()*360}deg) scale(${1+Math.random()})`, 30);
-      setTimeout(()=> h.style.opacity = '0', 900);
-      setTimeout(()=> h.remove(), 1400);
-    }
+    donkeyImg.addEventListener('load', ()=> donkeyImg.classList.add('loaded'));
 
-    /* -------------------- DIL: show player with animation + spawn notes on play -------------------- */
-    const dilPlayer = $('#dilPlayer');
-    const dilVideo = $('#dilVideo');
-    // reveal when scrolled into view
-    (function observeDil(){
+    /* -------------------- DIL: reveal + floating music notes -------------------- */
+    (function initDil(){
+      const dil = $('#dilPlayer');
+      const vv = $('#dilVideo');
       const obs = new IntersectionObserver(entries=>{
-        entries.forEach(en=>{
-          if(en.isIntersecting) dilPlayer.classList.add('visible');
-        });
-      }, {threshold:0.28});
-      obs.observe($('#dilSection'));
-    })();
-
-    // spawn little musical notes when playing
-    dilVideo.addEventListener('play', ()=>{ spawnMusicNotes(8); });
-    function spawnMusicNotes(n){
-      const wrap = $('#dilSection');
-      for(let i=0;i<n;i++){
-        setTimeout(()=>{
-          const note = document.createElement('div');
-          note.className='music-note';
-          note.innerHTML = '♪';
-          note.style.left = (20 + Math.random()*60) + '%';
-          note.style.top = (60 + Math.random()*10) + '%';
-          note.style.fontSize = (18 + Math.random()*26) + 'px';
-          note.style.transform = `translateY(20px) rotate(${Math.random()*30-15}deg)`;
-          note.style.transition = 'transform 1800ms cubic-bezier(.2,.9,.2,1), opacity 1400ms';
-          wrap.appendChild(note);
-          requestAnimationFrame(()=> note.style.transform = `translateY(-220px) rotate(${Math.random()*360}deg)`, note.style.opacity='0');
-          setTimeout(()=> note.remove(), 1800);
-        }, i*160);
-      }
-    }
-
-    /* -------------------- THEATER: curtains open on view + screen reveal -------------------- */
-    const curtainL = $('#curtainLeft'), curtainR = $('#curtainRight'), screen = $('#screen');
-    (function observeTheater(){
-      const obs = new IntersectionObserver(entries=>{
-        entries.forEach(en=>{
-          if(en.isIntersecting){
-            curtainL.classList.add('open');
-            curtainR.classList.add('open');
-            setTimeout(()=> screen.classList.add('visible'), 750);
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            dil.classList.add('visible');
+            spawnNotes();
           }
-        });
-      }, {threshold:0.24});
-      obs.observe($('#theaterSection'));
+        })
+      },{threshold:.35});
+      obs.observe(dil);
+
+      function spawnNotes(){
+        const wrap = dil.parentElement;
+        for(let i=0;i<10;i++){
+          const n = document.createElement('div');
+          n.className='music-note';
+          n.textContent = Math.random()>0.5 ? '♪' : '♩';
+          n.style.left = random(4,96)+'%';
+          n.style.bottom = '-10px';
+          n.style.fontSize = random(14,28)+'px';
+          wrap.appendChild(n);
+          const dy = random(80,160);
+          const dur = random(3,6);
+          n.animate([
+            { transform:`translateY(0)`, opacity:.12 },
+            { transform:`translateY(-${dy}px)`, opacity:0 }
+          ], {duration: dur*1000, easing:'ease-out', fill:'forwards', delay: i*120});
+          setTimeout(()=> n.remove(), (dur*1000)+1800);
+        }
+      }
+
+      vv.addEventListener('play', ()=>{/* keep for future hooks if needed */});
     })();
 
-    /* -------------------- PIE fun: create flying pie, spin, splat and drip -------------------- */
-    const pieBtn = $('#pieBtn'), rapidPie = $('#rapidPie'), faceImg = $('#faceImg');
-    let rapidInt = null;
-    pieBtn.addEventListener('click', ()=> throwPieAtFace());
-    rapidPie.addEventListener('mousedown', ()=> { if(rapidInt) return; rapidInt = setInterval(throwPieAtFace, 240); });
-    document.addEventListener('mouseup', ()=>{ if(rapidInt){ clearInterval(rapidInt); rapidInt = null; } });
-    function throwPieAtFace(){
-      const rect = faceImg.getBoundingClientRect();
-      const centerX = rect.left + rect.width/2 + window.scrollX;
-      const centerY = rect.top + rect.height/2 + window.scrollY;
-      createPie(centerX + (Math.random()*80-40), centerY - 60);
-      // small camera shake
+    /* -------------------- THEATER: tap curtain to reveal -------------------- */
+    (function theater(){
+      const left = $('#curtainLeft'), right = $('#curtainRight'), screen = $('#screen');
+      if(!left || !right) return;
+      screen.addEventListener('click', ()=>{
+        left.style.transition = right.style.transition = 'transform .9s cubic-bezier(.2,.9,.2,1)';
+        left.style.transform = 'translateX(-90%)';
+        right.style.transform = 'translateX(90%)';
+        // ensure iframe is focusable/visible after a short beat
+        setTimeout(()=> screen.querySelector('iframe')?.focus?.(), 600);
+      }, {once:true});
+    })();
+
+    /* -------------------- 💩 POOP MY FACE (replaces pie) -------------------- */
+    const faceImg = $('#faceImg');
+    const pieBtn = $('#pieBtn');
+    const rapidPie = $('#rapidPie');
+
+    function throwPoopAtFace(x, y){
+      createPoop(x, y);
+
+      // small camera shake on section
       const sec = $('#pieSection');
       sec.classList.add('shake');
       setTimeout(()=> sec.classList.remove('shake'), 320);
     }
-    function createPie(pageX,pageY){
-      const p = document.createElement('img');
-      p.src = 'pie.png'; // add pie.png to repo
-      p.alt = 'pie';
-      p.className = 'pie-img';
-      p.style.left = (pageX - 70) + 'px';
-      p.style.top = (pageY - 70) + 'px';
-      p.style.opacity = '0';
-      p.style.transform = `translateY(-200px) rotate(${Math.random()*40-20}deg) scale(.6)`;
+
+    function createPoop(pageX, pageY){
+      const p = document.createElement('span');
+      p.className = 'poop-emoji';
+      p.textContent = '💩';
+      // position (centered-ish)
+      const size = 64;
+      p.style.left = (pageX - size/2) + 'px';
+      p.style.top  = (pageY - size/2) + 'px';
       document.body.appendChild(p);
-      // drop with spin
-      requestAnimationFrame(()=> {
-        p.style.transition = 'transform 420ms cubic-bezier(.2,.9,.2,1), opacity 240ms'; p.style.opacity='1';
-        p.style.transform = `translateY(0px) rotate(${360 + Math.random()*360}deg) scale(1)`;
+
+      // drop-in animation
+      requestAnimationFrame(()=>{
+        const rot = 360 + Math.random()*360;
+        p.style.transition = 'transform 420ms cubic-bezier(.2,.9,.2,1), opacity 240ms';
+        p.style.opacity = '1';
+        p.style.transform = `translateY(0) rotate(${rot}deg) scale(1)`;
       });
-      // splat: flatten and fade; create cream drip
+
+      // squish + fade + little “stink” waft
       setTimeout(()=>{
         p.style.transition = 'transform 300ms ease-out, opacity 400ms linear';
         p.style.transform = `translateY(-6px) rotate(15deg) scale(.88)`;
-        // create drip
-        const drip = document.createElement('div');
-        drip.style.position='absolute';
-        drip.style.left = (parseFloat(p.style.left) + 44) + 'px';
-        drip.style.top = (parseFloat(p.style.top) + 74) + 'px';
-        drip.style.width='12px'; drip.style.height='28px'; drip.style.borderRadius='8px';
-        drip.style.background='linear-gradient(180deg,#fff,#fff8)';
-        drip.style.opacity='0.98';
-        drip.style.transform='translateY(-2px)';
-        drip.style.transition='transform 1400ms linear, opacity 900ms';
-        document.body.appendChild(drip);
-        setTimeout(()=> { drip.style.transform='translateY(36px)'; drip.style.opacity='0.6'; setTimeout(()=> drip.remove(), 1500); }, 160);
+
+        // waft lines
+        for(let i=0;i<2;i++){
+          const w = document.createElement('div');
+          w.style.position='absolute';
+          w.style.left = (parseFloat(p.style.left) + random(16,42)) + 'px';
+          w.style.top  = (parseFloat(p.style.top) - random(6,16)) + 'px';
+          w.style.width='2px'; w.style.height='18px';
+          w.style.borderRadius='2px';
+          w.style.background='linear-gradient(180deg,#8b5b2e,#8b5b2e00)';
+          w.style.opacity='0.5';
+          w.style.transform='translateY(14px)';
+          document.body.appendChild(w);
+          w.animate([{transform:'translateY(14px)', opacity:.5},{transform:'translateY(-10px)', opacity:0}], {duration:1200, easing:'ease-out', fill:'forwards'});
+          setTimeout(()=> w.remove(), 1400);
+        }
       }, 460);
-      setTimeout(()=> { p.style.opacity='0'; setTimeout(()=> p.remove(), 420); }, 1400);
+
+      setTimeout(()=>{ p.style.opacity='0'; setTimeout(()=> p.remove(), 420); }, 1400);
     }
 
-    /* -------------------- LETTERS: content (3 letters exactly as provided) -------------------- */
+    // interactions
+    faceImg.addEventListener('click', (e)=> {
+      throwPoopAtFace(e.pageX, e.pageY);
+    });
+    pieBtn.addEventListener('click', ()=>{
+      const rect = faceImg.getBoundingClientRect();
+      const x = rect.left + rect.width/2 + window.scrollX + random(-40,40);
+      const y = rect.top  + rect.height/2 + window.scrollY + random(-40,40);
+      throwPoopAtFace(x,y);
+    });
+    rapidPie.addEventListener('click', ()=>{
+      let n = 12;
+      const timer = setInterval(()=>{
+        const rect = faceImg.getBoundingClientRect();
+        const x = rect.left + random(0, rect.width) + window.scrollX;
+        const y = rect.top  + random(0, rect.height) + window.scrollY;
+        throwPoopAtFace(x,y);
+        if(--n<=0) clearInterval(timer);
+      }, 120);
+    });
+
+    /* -------------------- LETTERS: content (exactly as in your file) -------------------- */
     const LETTERS = [
       {
         title: "To the Moon and Back",
@@ -579,14 +529,6 @@
             <li class="letter-text-line">I love ki tum hamesha mere side pe khade hote ho no matter what.</li>
             <li class="letter-text-line">I love jab tum mujhe suljhate ho jab main confuse hota hoon.</li>
             <li class="letter-text-line">I love ki tum mujhe kabhi akela feel nahi karne dete.</li>
-            <li class="letter-text-line">I love jab tum mujhe khudse zyada important mante ho.</li>
-            <li class="letter-text-line">I love the way tum mujhe blush karva dete ho.</li>
-            <li class="letter-text-line">I love ki tum mere saath chhoti chhoti cheezein celebrate karte ho.</li>
-            <li class="letter-text-line">I love jab tum mujhe future ke dreams batate ho jisme main hota hoon.</li>
-            <li class="letter-text-line">I love jab tum mujhe “tum meri ho” yaad dilate ho.</li>
-            <li class="letter-text-line">I love ki tum mujhe kabhi judge nahi karte.</li>
-            <li class="letter-text-line">I love jab tum mujhe hug karke saari problems bhula dete ho.</li>
-            <li class="letter-text-line">I love ki tum mere saath childish ban jaate ho.</li>
             <li class="letter-text-line">I love jab tum mujhe apni diary ke jaise treat karte ho.</li>
             <li class="letter-text-line">I love ki tum mujhe hamesha apna best dikhana chahte ho.</li>
             <li class="letter-text-line">I love jab tum mujhe phone karke bas chup rehte ho.</li>
@@ -666,57 +608,32 @@
       letterCount.textContent = `Letter ${i+1} of ${LETTERS.length}`;
       letterContent.innerHTML = L.html;
 
-      // sequential reveal animation for each .letter-text-line or each child
-      const nodes = $$('.letter-text-line', letterContent);
-      if(nodes.length){
-        nodes.forEach((n,idx)=> { n.style.opacity='0'; n.style.transform='translateY(6px)'; n.style.transitionDelay = (idx*90)+'ms'; });
-        setTimeout(()=> nodes.forEach(n=>{ n.style.opacity='1'; n.style.transform='translateY(0)'; }), 80);
-      } else {
-        // If no .letter-text-line present (e.g., plain HTML), fade container
-        letterContent.style.opacity='0'; letterContent.style.transition='opacity 500ms ease';
-        requestAnimationFrame(()=> letterContent.style.opacity='1');
-      }
-
-      // put current HTML into editor for optional editing
+      // update editor with current HTML
       letterEditor.value = L.html;
       setTabActive(i);
-    }
 
-    function showEnvelopeAndTabs(){
-      envelopeViewport.style.display = 'block';
-      letterTabs.style.display = 'flex';
-      letterCta.style.display = 'flex';
-      setTimeout(()=> envelope.classList.add('enter'), 40);
-      envelope.setAttribute('tabindex', '0');
-      envelopeViewport.setAttribute('aria-hidden', 'false');
-      renderLetter(currentLetter);
-    }
-
-    // show envelope when headline clicked
-    letterHeadline.addEventListener('click', showEnvelopeAndTabs);
-    letterHeadline.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); showEnvelopeAndTabs(); } });
-
-    // tabs switching
-    letterTabs.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.letter-tab');
-      if(!btn) return;
-      currentLetter = Number(btn.dataset.index);
-      renderLetter(currentLetter);
-      // keep sheet visible state if already flipped
       if(flipped){
         // re-run line reveals
         const nodes = $$('.letter-text-line', letterContent);
         nodes.forEach((n,idx)=> setTimeout(()=> { n.style.opacity='1'; n.style.transform='translateY(0)'; }, 130 + idx*120));
       }
+    }
+
+    // headline click reveals envelope & tabs
+    letterHeadline.addEventListener('click', ()=>{
+      letterHeadline.setAttribute('aria-pressed','true');
+      letterTabs.style.display = 'flex';
+      envelopeViewport.style.display = 'grid';
+      letterCta.style.display = 'flex';
+      renderLetter(currentLetter);
     });
 
-    prevLetterBtn.addEventListener('click', ()=>{
-      currentLetter = (currentLetter + LETTERS.length - 1) % LETTERS.length;
-      renderLetter(currentLetter);
-    });
-    nextLetterBtn.addEventListener('click', ()=>{
-      currentLetter = (currentLetter + 1) % LETTERS.length;
-      renderLetter(currentLetter);
+    // tabs
+    $$('.letter-tab').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        currentLetter = Number(btn.dataset.index||0);
+        renderLetter(currentLetter);
+      });
     });
 
     // envelope flip to reveal letter
@@ -738,6 +655,10 @@
     envelope.addEventListener('click', flipEnvelope);
     envelope.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); flipEnvelope(); } });
 
+    // prev/next
+    prevLetterBtn.addEventListener('click', ()=>{ currentLetter = (currentLetter + LETTERS.length - 1) % LETTERS.length; renderLetter(currentLetter); });
+    nextLetterBtn.addEventListener('click', ()=>{ currentLetter = (currentLetter + 1) % LETTERS.length; renderLetter(currentLetter); });
+
     // save & reset for current letter
     saveLetterBtn.addEventListener('click', ()=>{
       const val = letterEditor.value || '';
@@ -749,8 +670,6 @@
     resetLetterBtn.addEventListener('click', ()=>{
       if(confirm('Reset just this letter to original (clear saved content)?')){
         localStorage.removeItem(STORAGE_KEYS[currentLetter]);
-        // (Rebuild from hardcoded originals by reloading page or reassigning from initial constants.)
-        // For simplicity, reload:
         location.reload();
       }
     });
@@ -763,7 +682,7 @@
       editorUI.style.display = !on ? 'block' : 'none';
     });
 
-    // reset all (clears storage + resets UI)
+    // reset all
     resetAllBtn.addEventListener('click', ()=>{
       if(confirm('Reset everything saved for this page? This will clear the saved letters.')) {
         STORAGE_KEYS.forEach(k=> localStorage.removeItem(k));
@@ -771,7 +690,7 @@
       }
     });
 
-    /* -------------------- keyboard shortcut: L reveals letter typewriter style (nice touch) -------------------- */
+    /* keyboard shortcut: L */
     document.addEventListener('keydown', (e)=>{
       if(e.key.toLowerCase() === 'l'){
         if(letterHeadline) letterHeadline.click();
@@ -779,23 +698,20 @@
       }
     });
 
-    /* -------------------- prefetch images & mark donkey loaded if cached -------------------- */
+    /* prefetch images & mark donkey loaded if cached */
     if(donkeyImg.complete) donkeyImg.classList.add('loaded');
 
-    /* -------------------- accessibility & cleanup -------------------- */
+    /* accessibility & cleanup */
     window.addEventListener('beforeunload', ()=> {
       const vids = $$('video');
       vids.forEach(v=>{ try{ v.pause(); }catch(e){} });
     });
 
-    /* -------------------- final: gentle entrance animations on load -------------------- */
+    /* gentle entrance nudge */
     window.addEventListener('load', ()=>{
       setTimeout(()=> {
         const els = ['#donkeySection','#dilSection','#theaterSection','#pieSection','#lettersSection'];
-        els.forEach((sel,idx)=>{
-          const el = $(sel);
-          if(el) el.style.transform = 'translateY(6px)';
-        });
+        els.forEach((sel)=>{ const el = $(sel); if(el) el.style.transform = 'translateY(6px)'; });
       }, 240);
     });
   </script>
