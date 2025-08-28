@@ -10,15 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,500&display=swap" rel="stylesheet">
 
   <style>
-    /* -------------------- Reset & base -------------------- */
     :root{
       --bg:#fff4fb;
       --ink:#222;
       --muted:#666;
       --rose:#ff6b81;
       --rose-deep:#e63946;
-      --glass: rgba(255,255,255,0.6);
-      --accent:#ffd1e0;
       --card:#fff;
       --shadow: 0 12px 40px rgba(0,0,0,.12);
       --soft-shadow: 0 6px 18px rgba(0,0,0,.08);
@@ -39,45 +36,40 @@
     }
 
     .container{max-width:1100px;margin:0 auto;padding:28px}
-    h1,h2{margin:0 0 12px 0}
-    p{margin:0 0 12px 0}
-    .center{text-align:center}
     .muted{color:var(--muted)}
-    button{font-weight:700}
     .btn{
       background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
       border:1px solid rgba(0,0,0,0.06);
       padding:10px 14px;border-radius:999px;cursor:pointer;
       box-shadow:var(--soft-shadow);
+      font-weight:700;
     }
-    .btn:hover{transform:translateY(-3px);transition:transform .2s}
+    .btn:hover{transform:translateY(-3px);transition:transform .18s}
 
-    /* -------------------- floating sparkles -------------------- */
+    /* sparkles */
     .sparkles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-    .spark{position:absolute;width:10px;height:10px;border-radius:50%;background:linear-gradient(180deg,#fff,#ffd1e0);opacity:.9;filter:blur(.6px);transform:translateY(10vh);}
+    .spark{position:absolute;border-radius:50%;background:linear-gradient(180deg,#fff,#ffd1e0);opacity:.9;filter:blur(.6px)}
 
-    /* -------------------- header / headline -------------------- */
     header{
       padding:18px 12px 6px;z-index:2;
-      position:sticky; top:0; background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+      position:sticky; top:0; background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
       backdrop-filter: blur(6px);
       border-bottom: 1px solid rgba(255,220,235,.6);
     }
     .brand{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand h1{font-size:clamp(1.2rem,2.2vw,1.6rem);color:var(--rose-deep);cursor:default;display:inline-block;user-select:none}
+    .brand h1{font-size:clamp(1.2rem,2.2vw,1.6rem);color:var(--rose-deep);user-select:none}
     .subtitle{color:var(--muted);font-size:.95rem}
 
-    /* -------------------- sections -------------------- */
     section.block{margin:24px auto;padding:18px;border-radius:18px;background:linear-gradient(180deg,var(--card),#fffafc);box-shadow:var(--shadow);position:relative;z-index:2}
     .section-title{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:12px}
     .section-title h2{font-size:1.25rem;color:var(--rose-deep);margin:0}
 
-    /* -------------------- DIL KA HAAL (portrait friendly) -------------------- */
+    /* Dil Ka Haal: portrait friendly */
     .dil-wrap{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:20px}
     .heart-frame{position:relative;border-radius:20px;padding:12px;display:flex;align-items:center;justify-content:center;overflow:visible}
     .dil-player{
-      position:relative;z-index:3;width:100%;max-width:380px; /* portrait width */
-      aspect-ratio: 9 / 16; /* portrait format */
+      position:relative;z-index:3;width:100%;max-width:420px;  /* portrait width cap */
+      aspect-ratio: 9 / 16; /* portrait aspect */
       border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(230,60,100,.08);
       transform:translateY(10px);opacity:0;transition:transform .6s ease,opacity .6s;
       border:6px solid rgba(255,230,240,.6);
@@ -89,55 +81,44 @@
     @keyframes beat{0%{box-shadow:0 0 0 0 rgba(230,60,100,.08)}40%{box-shadow:0 0 30px 8px rgba(230,60,100,.08)}100%{box-shadow:0 0 0 0 rgba(230,60,100,.08)}}
     .music-note{position:absolute;width:24px;height:24px;opacity:.12;filter:blur(.6px)}
 
-    /* -------------------- THEATER -------------------- */
+    /* Theater */
     .theater-wrap{position:relative;padding:0 12px}
-    .curtains{position:relative;height:0;overflow:visible}
     .curtain{position:absolute;top:-8px;width:50%;height:260px;background:linear-gradient(180deg,#a62b6a,#6b1239);transform-origin:top;box-shadow:inset 0 -30px 40px rgba(0,0,0,.25);border-radius:0 0 120px 120px;transition:transform 1s cubic-bezier(.2,.9,.2,1)}
     .curtain.left{left:0;transform:translateX(-6%) skewX(-6deg)}
     .curtain.right{right:0;transform:translateX(6%) skewX(6deg)}
     .curtain.open.left{transform:translateX(-120%) skewX(-6deg)}
     .curtain.open.right{transform:translateX(120%) skewX(6deg)}
     .screen{margin-top:18px;border-radius:14px;overflow:hidden;background:#000;padding:8px;box-shadow:0 30px 80px rgba(0,0,0,.28)}
-    .screen .media-frame{display:block;width:100%;height:60vh;max-height:420px;object-fit:cover;opacity:0;transform:scale(.98);transition:opacity .8s,transform .8s;border:0}
+    .screen .media-frame{display:block;width:100%;height:60vh;max-height:420px;border:0;opacity:0;transform:scale(.98);transition:opacity .8s,transform .8s}
     .screen.visible .media-frame{opacity:1;transform:scale(1)}
 
-    /* -------------------- POOP (replaces pie) -------------------- */
+    /* Poop */
     .poop-area{display:grid;grid-template-columns:1fr;gap:12px;padding:20px;align-items:center}
     .face-wrap{position:relative;max-width:560px;margin:0 auto;border-radius:16px;overflow:visible;display:flex;justify-content:center}
     .face-img{width:260px;height:260px;border-radius:50%;object-fit:cover;box-shadow:var(--soft-shadow);border:6px solid #ffe4ee;cursor:pointer;user-select:none}
-    .poop-button{
-      background:linear-gradient(180deg,#ffd65e,#ffb703);border:none;padding:12px;border-radius:12px;font-weight:800;cursor:pointer;color:#2b1f00
-    }
-    .poop-emoji{
-      position:absolute; font-size:64px; line-height:1; will-change:transform, opacity;
-      pointer-events:none; user-select:none; filter: drop-shadow(0 8px 30px rgba(0,0,0,.15));
-      transform: translateY(-200px) scale(.6) rotate(0deg); opacity:0;
-    }
-    #poopSection.shake{animation:shake .3s}
-    @keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}100%{transform:translateX(0)}}
+    .poop-button{background:linear-gradient(180deg,#ffd65e,#ffb703);border:none;padding:12px;border-radius:12px;font-weight:800;cursor:pointer;color:#2b1f00}
+    .poop-emoji{position:absolute;font-size:64px;line-height:1;will-change:transform,opacity;pointer-events:none;filter:drop-shadow(0 8px 30px rgba(0,0,0,.15));transform:translateY(-200px) scale(.6);opacity:0}
+    .shake{animation:shake .28s ease-in-out}
+    @keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}}
 
-    /* -------------------- LETTERS -------------------- */
+    /* Letters / envelope */
     .letter-area{padding:30px 18px;display:flex;flex-direction:column;gap:12px;align-items:center}
-    #letterHeadline{font-size:1.4rem;color:var(--rose-deep);cursor:pointer;display:inline-block;padding:8px 14px;border-radius:999px;background:linear-gradient(180deg,#fff,#fffaf6);box-shadow:var(--soft-shadow);transition:transform .28s,box-shadow .28s;animation:headlinePulse 3s infinite}
-    @keyframes headlinePulse{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+    #letterHeadline{font-size:1.4rem;color:var(--rose-deep);cursor:pointer;display:inline-block;padding:8px 14px;border-radius:999px;background:linear-gradient(180deg,#fff,#fffaf6);box-shadow:var(--soft-shadow)}
     .envelope-viewport{height:320px;width:360px;position:relative;perspective:1200px;margin-top:8px}
-    .envelope{
-      width:100%;height:100%;position:absolute;left:0;top:0;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.9,.2,1);cursor:pointer;display:flex;align-items:center;justify-content:center;
-    }
+    .envelope{width:100%;height:100%;position:absolute;left:0;top:0;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.9,.2,1);cursor:pointer;display:flex;align-items:center;justify-content:center}
     .envelope .face{position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,#ffdfe9,#fff);box-shadow:0 10px 40px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--rose-deep);font-size:1.2rem;backface-visibility:hidden;}
     .envelope .back{position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,#fff6fa,#fff);box-shadow:0 4px 16px rgba(0,0,0,.08);transform:rotateY(180deg);backface-visibility:hidden;padding:18px;font-size:.95rem;color:#333;overflow:hidden;}
     .envelope.enter{animation:bounceIn .7s both}
     @keyframes bounceIn{0%{transform:translateY(-40vh) scale(.6) rotate(-6deg)}60%{transform:translateY(10px) scale(1.02)}100%{transform:translateY(0) scale(1) rotate(0)}}
     .envelope.flipped{transform:rotateY(180deg) translateZ(0)}
-    .letter-sheet{position:absolute;width:86%;left:7%;top:62%;transform:translateY(18px);background:var(--parchment);padding:18px 16px 22px;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.12);opacity:0;transition:transform .6s cubic-bezier(.2,.9,.2,1),opacity .6s;background-image: radial-gradient(ellipse at top left, rgba(230,60,100,0.05), transparent 40%), linear-gradient(transparent 24px, rgba(0,0,0,.04) 25px, transparent 26px); background-size: 100% 100%, 100% 28px; font-family: "Crimson Pro", Georgia, serif;}
+    .letter-sheet{position:absolute;width:86%;left:7%;top:62%;transform:translateY(18px);background:var(--parchment);padding:18px 16px 22px;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.12);opacity:0;transition:transform .6s cubic-bezier(.2,.9,.2,1),opacity .6s;font-family: "Crimson Pro", Georgia, serif;}
     .letter-sheet.visible{opacity:1;transform:translateY(-120px)}
     .letter-title{font-family:"Great Vibes", cursive; font-size:1.4rem; color:#a8334a; text-align:center; margin-bottom:6px}
     .letter-meta{display:flex; align-items:center; justify-content:space-between; margin:4px 0 10px 0; font-size:.85rem; color:#a0777a}
-    .wax-seal{position:absolute; right:-8px; bottom:-10px; width:64px; height:64px; border-radius:999px; background:radial-gradient(circle at 30% 30%, #d63b57, var(--seal)); box-shadow:0 6px 16px rgba(0,0,0,.25), inset 0 4px 10px rgba(0,0,0,.25); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; transform:rotate(-8deg)}
     .stamp{position:absolute; top:6px; right:8px; border:2px dashed rgba(166,43,106,.35); padding:6px 10px; border-radius:6px; font-size:.8rem; color:#a62b6a; transform:rotate(6deg); background:#fff8fc}
+    .wax-seal{position:absolute; right:-8px; bottom:-10px; width:64px; height:64px; border-radius:999px; background:radial-gradient(circle at 30% 30%, #d63b57, var(--seal)); box-shadow:0 6px 16px rgba(0,0,0,.25), inset 0 4px 10px rgba(0,0,0,.25); display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px; transform:rotate(-8deg)}
     .letter-content{max-height:270px; overflow:auto; padding-right:6px}
     .letter-content ul{margin:8px 0 0 18px}
-    .letter-content li{margin:6px 0}
     .signature{margin-top:8px; font-family:"Great Vibes", cursive; font-size:1.3rem; color:#a8334a; text-align:right}
     .letter-text-line{opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
     .editor-ui{display:flex;flex-direction:column;gap:8px;margin-top:8px;width:88%}
@@ -147,9 +128,8 @@
     .letter-tab[aria-selected="true"]{background:linear-gradient(180deg,#ffe6ef,#fff); outline:2px solid #ffc2d6}
     .letter-cta{display:flex; gap:8px; justify-content:center; margin-top:8px}
 
-    /* responsive */
     @media (max-width:880px){
-      .dil-player{max-width:260px; aspect-ratio:9/16}
+      .dil-player{max-width:320px; aspect-ratio:9/16}
       .screen .media-frame{height:32vh}
       .envelope-viewport{width:92%;height:260px}
       .letter-content{max-height:220px}
@@ -177,11 +157,11 @@
   </header>
 
   <main class="container">
-    <!-- DIL (portrait-centered) -->
+    <!-- DIL: portrait video -->
     <section class="block dil-wrap" id="dilSection" aria-labelledby="dilTitle">
       <div class="section-title"><h2 id="dilTitle">💓 Dil Ka Jo Haal Hai</h2></div>
       <div class="heart-frame" role="region" aria-label="dil video">
-        <div class="heart-bg"></div>
+        <div class="heart-bg" aria-hidden="true"></div>
         <div class="dil-player" id="dilPlayer">
           <div class="heart-pulse" aria-hidden="true"></div>
           <video id="dilVideo" playsinline preload="metadata" controls>
@@ -192,7 +172,7 @@
       </div>
     </section>
 
-    <!-- THEATER (unchanged) -->
+    <!-- THEATER -->
     <section class="block theater-wrap" id="theaterSection" aria-labelledby="theaterTitle">
       <div class="section-title"><h2 id="theaterTitle">🎬 Perfect Together — The Short Film</h2></div>
       <div class="curtains" aria-hidden="true" style="height:0;">
@@ -210,12 +190,12 @@
       </div>
     </section>
 
-    <!-- POOP (replaces pie) -->
+    <!-- POOP (replaces Pie) -->
     <section class="block poop-area" id="poopSection" aria-labelledby="poopTitle">
       <div class="section-title"><h2 id="poopTitle">💩 Poop My Face (for fun)</h2></div>
       <div class="face-wrap">
-        <!-- kept the same photo file path as original (no changes to your photos) -->
-        <img id="faceImg" class="face-img" src="donkeyLove.jpg" alt="Face image">
+        <!-- kept your original photo path unchanged -->
+        <img id="faceImg" class="face-img" src="donkeyLove.jpg" alt="Face image for poop">
       </div>
       <div style="display:flex;gap:10px;justify-content:center;margin-top:10px">
         <button class="poop-button" id="poopBtn">Throw Poop!</button>
@@ -223,7 +203,7 @@
       </div>
     </section>
 
-    <!-- LETTERS (unchanged content; fixed ordering/display) -->
+    <!-- LETTERS -->
     <section class="block letter-area" id="lettersSection" aria-labelledby="lettersTitle">
       <div class="section-title"><h2 id="lettersTitle">💌 The 3 Letters</h2></div>
 
@@ -231,7 +211,6 @@
         <div id="letterHeadline" role="button" tabindex="0" aria-pressed="false">Click to reveal the envelope</div>
 
         <div class="letter-tabs" id="letterTabs" style="display:none" role="tablist" aria-label="Choose a letter">
-          <!-- tabs will be synced to LETTERS array on load to guarantee correct order -->
           <button class="letter-tab" role="tab" id="tab-1" aria-selected="true" data-index="0">Letter 1</button>
           <button class="letter-tab" role="tab" id="tab-2" aria-selected="false" data-index="1">Letter 2</button>
           <button class="letter-tab" role="tab" id="tab-3" aria-selected="false" data-index="2">Letter 3</button>
@@ -241,7 +220,7 @@
           <div class="envelope enter" id="envelope" role="button" tabindex="0" aria-label="Envelope — click to open">
             <div class="face">📩 Open Me</div>
             <div class="back">Envelope back</div>
-            <!-- letter sheet -->
+
             <div class="letter-sheet" id="letterSheet" aria-hidden="true">
               <div class="stamp">Love Mail</div>
               <div class="letter-meta"><span id="letterCount">Letter 1 of 3</span><span>for Ishani</span></div>
@@ -268,7 +247,6 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <footer style="padding:30px 12px;text-align:center;opacity:.85">
@@ -276,142 +254,102 @@
   </footer>
 
   <script>
-    /* -------------------- helpful utils -------------------- */
-    const $ = (sel,root=document)=>root.querySelector(sel);
-    const $$ = (sel,root=document)=>[...root.querySelectorAll(sel)];
-    const random = (min,max)=> Math.random()*(max-min)+min;
+    /* ---- simple helpers ---- */
+    const $ = (s, r=document)=> r.querySelector(s);
+    const $$ = (s, r=document)=> [...r.querySelectorAll(s)];
+    const rand = (a,b)=> Math.random()*(b-a)+a;
 
-    /* -------------------- sparkles background -------------------- */
+    /* ---- spawn subtle sparkles ---- */
     (function spawnSparkles(){
       const root = $('#sparkles');
       if(!root) return;
       const count = 14;
       for(let i=0;i<count;i++){
         const el = document.createElement('div');
-        el.className='spark';
-        const left = Math.random()*100;
-        const top = Math.random()*100;
-        el.style.left = left + '%';
-        el.style.top = top + '%';
-        el.style.width = (6 + Math.random()*12)+'px';
-        el.style.height = el.style.width;
-        el.style.opacity = (0.05 + Math.random()*0.25);
+        el.className = 'spark';
+        const size = 6 + Math.random()*14;
+        el.style.width = el.style.height = size + 'px';
+        el.style.left = (Math.random()*100) + '%';
+        el.style.top = (Math.random()*100) + '%';
+        el.style.opacity = (0.05 + Math.random()*0.35);
         root.appendChild(el);
-        (function anim(e){
-          const dx = (Math.random()-0.5)*20;
-          const dy = (Math.random()*18)+6;
-          e.animate([
-            { transform: `translateY(0) translateX(0)`, opacity: e.style.opacity },
-            { transform: `translateY(-${dy}px) translateX(${dx}px)`, opacity: 0.02 }
-          ], { duration: 4000 + Math.random()*4000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' });
-        })(el);
+        el.animate([
+          { transform: 'translateY(0) translateX(0)', opacity: el.style.opacity },
+          { transform: `translateY(-${20+Math.random()*60}px) translateX(${(Math.random()-0.5)*40}px)`, opacity: 0.02 }
+        ], { duration: 4000 + Math.random()*6000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' });
       }
     })();
 
-    /* -------------------- DIL: show player with animation + spawn notes on view -------------------- */
+    /* ---- DIL: reveal + spawn notes on play ---- */
     (function initDil(){
-      const dilPlayer = $('#dilPlayer');
-      const dilVideo = $('#dilVideo');
-      if(!dilPlayer) return;
+      const dil = $('#dilPlayer'), video = $('#dilVideo');
+      if(!dil) return;
       const obs = new IntersectionObserver(entries=>{
-        entries.forEach(en=>{
-          if(en.isIntersecting) dilPlayer.classList.add('visible');
-        });
-      }, {threshold:0.28});
+        entries.forEach(e=>{ if(e.isIntersecting) dil.classList.add('visible'); });
+      }, {threshold:.28});
       obs.observe($('#dilSection'));
-
-      // spawn little musical notes when playing (on play event)
-      dilVideo.addEventListener('play', ()=>{ spawnMusicNotes(8); });
-
-      function spawnMusicNotes(n){
+      video.addEventListener('play', ()=> spawnNotes(8));
+      function spawnNotes(n){
         const wrap = $('#dilSection');
         for(let i=0;i<n;i++){
           setTimeout(()=>{
             const note = document.createElement('div');
-            note.className='music-note';
-            note.innerHTML = '♪';
-            note.style.left = (20 + Math.random()*60) + '%';
+            note.className = 'music-note';
+            note.textContent = Math.random()>0.5 ? '♪' : '♩';
+            note.style.left = (15 + Math.random()*70) + '%';
             note.style.top = (60 + Math.random()*10) + '%';
-            note.style.fontSize = (18 + Math.random()*26) + 'px';
-            note.style.transform = `translateY(20px) rotate(${Math.random()*30-15}deg)`;
-            note.style.transition = 'transform 1800ms cubic-bezier(.2,.9,.2,1), opacity 1400ms';
+            note.style.fontSize = (12 + Math.random()*26) + 'px';
             wrap.appendChild(note);
-            requestAnimationFrame(()=> { note.style.transform = `translateY(-220px) rotate(${Math.random()*360}deg)`; note.style.opacity='0'; });
-            setTimeout(()=> note.remove(), 1800);
-          }, i*160);
+            note.animate([
+              { transform: 'translateY(0)', opacity: .12 },
+              { transform: `translateY(-${80+Math.random()*180}px)`, opacity: 0 }
+            ], { duration: 1200 + Math.random()*1200, easing: 'ease-out', fill:'forwards' });
+            setTimeout(()=> note.remove(), 2200);
+          }, i*140);
         }
       }
     })();
 
-    /* -------------------- THEATER: curtains open on click -------------------- */
-    (function theater(){
-      const curtainL = $('#curtainLeft'), curtainR = $('#curtainRight'), screen = $('#screen');
-      if(!curtainL || !curtainR || !screen) return;
+    /* ---- Theater: curtains open once ---- */
+    (function initTheater(){
+      const left = $('#curtainLeft'), right = $('#curtainRight'), screen = $('#screen');
+      if(!left || !right || !screen) return;
       screen.addEventListener('click', ()=>{
-        curtainL.classList.add('open');
-        curtainR.classList.add('open');
-        setTimeout(()=> screen.classList.add('visible'), 750);
+        left.classList.add('open'); right.classList.add('open');
+        setTimeout(()=> screen.classList.add('visible'), 700);
       }, {once:true});
     })();
 
-    /* -------------------- POOP MY FACE -------------------- */
+    /* ---- Poop feature ---- */
     const faceImg = $('#faceImg');
-    const poopBtn = $('#poopBtn');
-    const rapidPoop = $('#rapidPoop');
+    const poopBtn = $('#poopBtn'), rapidPoop = $('#rapidPoop');
     let rapidInterval = null;
 
-    // mark face image loaded for a small entrance animation if desired
-    if(faceImg){
-      faceImg.addEventListener('load', ()=> faceImg.classList.add('loaded'));
-      if(faceImg.complete) faceImg.classList.add('loaded');
-    }
-
-    function throwPoopAtFace(pageX, pageY){
-      // If x/y not provided, target face center
-      if(typeof pageX !== 'number' || typeof pageY !== 'number'){
-        const rect = faceImg.getBoundingClientRect();
-        pageX = rect.left + rect.width/2 + window.scrollX + random(-40,40);
-        pageY = rect.top  + rect.height/2 + window.scrollY + random(-40,40);
-      }
-      createPoop(pageX, pageY);
-
-      // small shake
-      const sec = $('#poopSection');
-      if(sec){
-        sec.classList.add('shake');
-        setTimeout(()=> sec.classList.remove('shake'), 320);
-      }
-    }
-
-    function createPoop(pageX,pageY){
+    function createPoop(x,y){
       const p = document.createElement('div');
       p.className = 'poop-emoji';
       p.textContent = '💩';
-      const size = 64;
       p.style.position = 'absolute';
-      p.style.left = (pageX - size/2) + 'px';
-      p.style.top = (pageY - size/2) + 'px';
+      const size = 64;
+      p.style.left = (x - size/2) + 'px';
+      p.style.top  = (y - size/2) + 'px';
       p.style.opacity = '0';
-      p.style.transform = `translateY(-200px) rotate(${Math.random()*40-20}deg) scale(.6)`;
+      p.style.transform = `translateY(-200px) rotate(${rand(-20,20)}deg) scale(.6)`;
       document.body.appendChild(p);
-
-      // drop-in animation
       requestAnimationFrame(()=> {
         p.style.transition = 'transform 420ms cubic-bezier(.2,.9,.2,1), opacity 240ms';
         p.style.opacity = '1';
         p.style.transform = `translateY(0px) rotate(${360 + Math.random()*360}deg) scale(1)`;
       });
-
-      // squish + fade and tiny waft lines
       setTimeout(()=>{
         p.style.transition = 'transform 300ms ease-out, opacity 400ms linear';
         p.style.transform = `translateY(-6px) rotate(15deg) scale(.88)`;
-
+        // small waft lines
         for(let i=0;i<2;i++){
           const w = document.createElement('div');
           w.style.position='absolute';
-          w.style.left = (parseFloat(p.style.left) + random(16,42)) + 'px';
-          w.style.top  = (parseFloat(p.style.top) - random(6,16)) + 'px';
+          w.style.left = (parseFloat(p.style.left) + rand(16,42)) + 'px';
+          w.style.top  = (parseFloat(p.style.top) - rand(6,16)) + 'px';
           w.style.width='2px'; w.style.height='18px';
           w.style.borderRadius='2px';
           w.style.background='linear-gradient(180deg,#8b5b2e,#8b5b2e00)';
@@ -422,41 +360,39 @@
           setTimeout(()=> w.remove(), 1400);
         }
       }, 460);
-
-      setTimeout(()=> { p.style.opacity='0'; setTimeout(()=> p.remove(), 420); }, 1400);
+      setTimeout(()=>{ p.style.opacity='0'; setTimeout(()=> p.remove(), 420); }, 1400);
     }
 
-    // interactions
+    function throwPoopAtFace(pageX, pageY){
+      // if no coords provided, target center of face
+      if(typeof pageX !== 'number' || typeof pageY !== 'number'){
+        const r = faceImg.getBoundingClientRect();
+        pageX = r.left + r.width/2 + window.scrollX + rand(-40,40);
+        pageY = r.top  + r.height/2 + window.scrollY + rand(-40,40);
+      }
+      createPoop(pageX, pageY);
+      const sec = $('#poopSection');
+      if(sec){ sec.classList.add('shake'); setTimeout(()=> sec.classList.remove('shake'), 320); }
+    }
+
     if(faceImg){
-      faceImg.addEventListener('click', (e)=> {
-        throwPoopAtFace(e.pageX, e.pageY);
-      });
+      faceImg.addEventListener('click', (e)=> throwPoopAtFace(e.pageX, e.pageY));
     }
     if(poopBtn){
-      poopBtn.addEventListener('click', ()=>{
-        throwPoopAtFace();
-      });
+      poopBtn.addEventListener('click', ()=> throwPoopAtFace());
     }
-    // Rapid mode: hold to rapid-fire (mousedown start, mouseup stop), and also click for short burst
     if(rapidPoop){
       rapidPoop.addEventListener('mousedown', ()=> {
         if(rapidInterval) return;
-        rapidInterval = setInterval(()=> throwPoopAtFace(), 180);
+        rapidInterval = setInterval(()=> throwPoopAtFace(), 160);
       });
-      document.addEventListener('mouseup', ()=> {
-        if(rapidInterval){ clearInterval(rapidInterval); rapidInterval = null; }
-      });
-      // click for quick small burst
-      rapidPoop.addEventListener('click', ()=>{
-        let count = 6;
-        const t = setInterval(()=>{
-          throwPoopAtFace();
-          if(--count<=0) clearInterval(t);
-        }, 120);
+      document.addEventListener('mouseup', ()=> { if(rapidInterval){ clearInterval(rapidInterval); rapidInterval=null; } });
+      rapidPoop.addEventListener('click', ()=> {
+        let n=8; const t=setInterval(()=>{ throwPoopAtFace(); if(--n<=0) clearInterval(t); }, 120);
       });
     }
 
-    /* -------------------- LETTERS: exact original content, fixed ordering and tabs -------------------- */
+    /* ---- LETTERS: exact content from your uploaded file (preserved verbatim, not reversed) ---- */
     const LETTERS = [
       {
         title: "To the Moon and Back",
@@ -578,7 +514,7 @@
       }
     ];
 
-    /* -------------------- LETTER interactions & editor -------------------- */
+    /* ---- Letters UI & editor ---- */
     const letterHeadline = $('#letterHeadline');
     const envelopeViewport = $('#envelopeViewport');
     const envelope = $('#envelope');
@@ -599,32 +535,17 @@
     const letterCta = $('#letterCta');
 
     const STORAGE_KEYS = ['forgive_letter_1','forgive_letter_2','forgive_letter_3'];
-    let currentLetter = 0; // 0..2
+    let currentLetter = 0;
     let flipped = false;
 
-    // Load any saved edits (preserve user edits if present)
+    // load saved edits (if any)
     LETTERS.forEach((L, idx)=>{
       const saved = localStorage.getItem(STORAGE_KEYS[idx]);
-      if(saved && saved.trim()){
-        L.html = saved; // keep user's edited HTML
-      }
+      if(saved && saved.trim()) L.html = saved;
     });
 
-    // ensure letter tabs match LETTERS order (fixes any reversed display)
-    function initTabs(){
-      const tabs = $$('.letter-tab', letterTabs);
-      tabs.forEach((b, idx)=>{
-        if(LETTERS[idx]) b.textContent = `Letter ${idx+1}`;
-        b.dataset.index = String(idx);
-        b.setAttribute('aria-selected', String(idx===currentLetter));
-      });
-    }
-    initTabs();
-
     function setTabActive(i){
-      $$('.letter-tab').forEach((b,idx)=>{
-        b.setAttribute('aria-selected', String(idx===i));
-      });
+      $$('.letter-tab').forEach((b,idx)=> b.setAttribute('aria-selected', String(idx===i)));
     }
 
     function renderLetter(i){
@@ -633,57 +554,48 @@
       letterSignature.textContent = L.signature;
       letterCount.textContent = `Letter ${i+1} of ${LETTERS.length}`;
       letterContent.innerHTML = L.html;
-
-      // sequential reveal animation for each .letter-text-line or each child
-      const nodes = $$('.letter-text-line', letterContent);
-      if(nodes.length){
-        nodes.forEach((n,idx)=> { n.style.opacity='0'; n.style.transform='translateY(6px)'; n.style.transitionDelay = (idx*90)+'ms'; });
-        setTimeout(()=> nodes.forEach(n=>{ n.style.opacity='1'; n.style.transform='translateY(0)'; }), 80);
-      } else {
-        letterContent.style.opacity='0'; letterContent.style.transition='opacity 500ms ease';
-        requestAnimationFrame(()=> letterContent.style.opacity='1');
-      }
-
-      // put current HTML into editor for optional editing
       letterEditor.value = L.html;
       setTabActive(i);
+      // reveal text lines with simple stagger
+      const nodes = $$('.letter-text-line', letterContent);
+      nodes.forEach((n, idx)=> {
+        n.style.opacity = '0';
+        n.style.transform = 'translateY(6px)';
+        setTimeout(()=> { n.style.opacity='1'; n.style.transform='translateY(0)'; }, 120 + idx*80);
+      });
     }
 
-    // show envelope when headline clicked
-    function showEnvelopeAndTabs(){
-      envelopeViewport.style.display = 'block';
+    function showEnvelope(){
       letterTabs.style.display = 'flex';
+      envelopeViewport.style.display = 'grid';
       letterCta.style.display = 'flex';
-      setTimeout(()=> envelope.classList.add('enter'), 40);
-      envelope.setAttribute('tabindex', '0');
-      envelopeViewport.setAttribute('aria-hidden', 'false');
       renderLetter(currentLetter);
     }
 
-    letterHeadline.addEventListener('click', showEnvelopeAndTabs);
-    letterHeadline.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); showEnvelopeAndTabs(); } });
+    letterHeadline.addEventListener('click', showEnvelope);
+    letterHeadline.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); showEnvelope(); } });
 
-    // tabs switching (robust: uses dataset index)
-    letterTabs.addEventListener('click', (e)=>{
+    // tabs
+    letterTabs.addEventListener('click', e=>{
       const btn = e.target.closest('.letter-tab');
       if(!btn) return;
-      const idx = Number(btn.dataset.index || 0);
-      currentLetter = idx;
+      currentLetter = Number(btn.dataset.index || 0);
       renderLetter(currentLetter);
     });
 
     prevLetterBtn.addEventListener('click', ()=>{ currentLetter = (currentLetter + LETTERS.length - 1) % LETTERS.length; renderLetter(currentLetter); });
     nextLetterBtn.addEventListener('click', ()=>{ currentLetter = (currentLetter + 1) % LETTERS.length; renderLetter(currentLetter); });
 
-    // envelope flip
+    // flip envelope
     function flipEnvelope(){
       flipped = !flipped;
       if(flipped){
         envelope.classList.add('flipped');
         setTimeout(()=> {
           letterSheet.classList.add('visible');
+          // reveal letter lines inside letterSheet (if any)
           const nodes = $$('.letter-text-line', letterSheet);
-          nodes.forEach((n,idx)=>{ setTimeout(()=>{ n.style.opacity='1'; n.style.transform='translateY(0)'; }, 130 + idx*140); });
+          nodes.forEach((n,idx)=> setTimeout(()=> { n.style.opacity='1'; n.style.transform='translateY(0)'; }, 130 + idx*140));
         }, 420);
       } else {
         letterSheet.classList.remove('visible');
@@ -709,7 +621,7 @@
       }
     });
 
-    // edit toggle (global)
+    // global edit toggle
     editToggle.addEventListener('click', ()=>{
       const on = editToggle.getAttribute('aria-pressed') === 'true';
       editToggle.setAttribute('aria-pressed', String(!on));
@@ -717,7 +629,7 @@
       editorUI.style.display = !on ? 'block' : 'none';
     });
 
-    // reset all (clears storage + resets UI)
+    // reset all saved
     resetAllBtn.addEventListener('click', ()=>{
       if(confirm('Reset everything saved for this page? This will clear the saved letters.')) {
         STORAGE_KEYS.forEach(k=> localStorage.removeItem(k));
@@ -725,31 +637,22 @@
       }
     });
 
-    /* keyboard shortcut: L reveals letter + flips */
-    document.addEventListener('keydown', (e)=>{
-      if(e.key.toLowerCase() === 'l'){
-        if(letterHeadline) letterHeadline.click();
-        if(!flipped) setTimeout(()=> flipEnvelope(), 600);
-      }
+    // keyboard quick-open: L
+    document.addEventListener('keydown', e=>{
+      if(e.key.toLowerCase()==='l'){ if(letterHeadline) letterHeadline.click(); if(!flipped) setTimeout(()=> flipEnvelope(), 600); }
     });
 
-    /* accessibility & cleanup */
-    window.addEventListener('beforeunload', ()=> {
-      const vids = $$('video');
-      vids.forEach(v=>{ try{ v.pause(); }catch(e){} });
-    });
+    // pause videos on unload
+    window.addEventListener('beforeunload', ()=> { $$('video').forEach(v=>{ try{ v.pause(); } catch{} }); });
 
-    /* gentle entrance animations on load */
-    window.addEventListener('load', ()=>{
+    // initial tiny entrance animation
+    window.addEventListener('load', ()=> {
       setTimeout(()=> {
         const els = ['#dilSection','#theaterSection','#poopSection','#lettersSection'];
-        els.forEach((sel,idx)=>{
-          const el = $(sel);
-          if(el) el.style.transform = 'translateY(6px)';
-        });
-        // ensure tabs reflect ORDER
-        initTabs();
-      }, 240);
+        els.forEach(sel=>{ const el = $(sel); if(el) el.style.transform = 'translateY(6px)'; });
+        // ensure tabs reflect order
+        $$('.letter-tab').forEach((b,idx)=>{ b.dataset.index = String(idx); b.setAttribute('aria-selected', String(idx===0)); b.textContent = `Letter ${idx+1}`; });
+      }, 220);
     });
   </script>
 </body>
